@@ -1,8 +1,13 @@
 {
+	"publisher": "christianbrassat",
 	"name": "contentq",
 	"displayName": "contentQ",
 	"description": "InsertContent made easy",
 	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://git.gamkee.de/ieQ-health/contentQ.git"
+	},
 	"engines": {
 		"vscode": "^1.30.0"
 	},
