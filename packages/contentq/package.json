@@ -15,7 +15,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.insertcontent"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
