@@ -1,0 +1,10 @@
+image: node:4.2.2
+
+publish:
+  script:
+    - npm install -g vsce
+    - npm install
+    - npm run postinstall
+    - vsce publish -p $PAT
+  only:
+    - master
