@@ -3,10 +3,10 @@
 	"name": "firmendatenq",
 	"displayName": "firmendatenQ",
 	"description": "Insert Firmendaten",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"repository": {
 		"type": "git",
-		"url": "https://git2.trbk.it/ieQ-health/firmendatenQ.git"
+		"url": "https://git2.trbk.it/ieq/vscode-firmendatenq.git"
 	},
 	"engines": {
 		"vscode": "^1.30.0"
