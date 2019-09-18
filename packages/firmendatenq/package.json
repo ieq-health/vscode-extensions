@@ -3,7 +3,7 @@
 	"name": "firmendatenq",
 	"displayName": "firmendatenQ",
 	"description": "Insert Firmendaten",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"repository": {
 		"type": "git",
 		"url": "https://git2.trbk.it/ieq/vscode-firmendatenq.git"

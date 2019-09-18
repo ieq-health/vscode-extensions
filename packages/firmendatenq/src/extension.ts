@@ -7,13 +7,16 @@ export function activate(context: vscode.ExtensionContext) {
 		'plzort',
 		'plz',
 		'ort',
+		'nur_telefon',
 		'telefon',
 		'telefon_nolink',
 		'mobil',
 		'mobil_nolink',
+		'nur_fax',
 		'fax',
-		'email',
-		'email_nolink',
+		'nur_e-mail',
+		'e-mail',
+		'e-mail_nolink',
 		'homepage',
 		'homepage_nolink',
 		'homepage_http_nolink',
@@ -60,13 +63,17 @@ export function activate(context: vscode.ExtensionContext) {
 		let editor = vscode.window.activeTextEditor;
 
 		vscode.window.showQuickPick(attributes, { canPickMany: true }).then(async pick => {
-			const separator = await showPickSeparator();
+			let separator = '';
+
+			if (pick.indexOf(',') > 0) {
+				separator = ';Trennzeichen=' + await showPickSeparator();
+			}
 
 			editor.edit(edit => {
 				editor.selections.forEach(selection => {
 					edit.insert(
 						selection.start,
-						`<IEQ-CMS function="InsertFirmendaten" param="Felder=${pick};Trennzeichen=${separator}">[Firmendaten: Name, Adresse + Telefonnummer]</IEQ-CMS>`
+						`<IEQ-CMS function="InsertFirmendaten" param="Felder=${pick}${separator}">[Firmendaten: Name, Adresse + Telefonnummer]</IEQ-CMS>`
 					)
 				})
 			})
