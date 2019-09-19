@@ -65,7 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showQuickPick(attributes, { canPickMany: true }).then(async pick => {
 			let separator = '';
 
-			if (pick.indexOf(',') > 0) {
+			if (pick.length > 1) {
 				separator = ';Trennzeichen=' + await showPickSeparator();
 			}
 
