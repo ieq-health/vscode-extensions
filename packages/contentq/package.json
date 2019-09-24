@@ -6,7 +6,7 @@
 	"version": "0.0.3",
 	"repository": {
 		"type": "git",
-		"url": "https://git.gamkee.de/ieQ-health/contentQ.git"
+		"url": "https://github.com/crshd/vscode-contentQ.git"
 	},
 	"engines": {
 		"vscode": "^1.30.0"
