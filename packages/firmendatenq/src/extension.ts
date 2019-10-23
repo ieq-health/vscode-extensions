@@ -75,7 +75,7 @@ export function activate(context: vscode.ExtensionContext) {
 				editor.selections.forEach(selection => {
 					edit.insert(
 						selection.start,
-						`<IEQ-CMS function="InsertFirmendaten" param="Felder=${pick}${separator}">[Firmendaten: Name, Adresse + Telefonnummer]</IEQ-CMS>`
+						`<IEQ-CMS function="InsertFirmendaten" param="Felder=${pick}${separator}"></IEQ-CMS>`
 					)
 				})
 			})
