@@ -3,7 +3,7 @@
 	"name": "firmendatenq",
 	"displayName": "firmendatenQ",
 	"description": "Insert Firmendaten",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"repository": {
 		"type": "git",
 		"url": "https://git.brassat.eu/ieq/vscode-firmendatenq.git"

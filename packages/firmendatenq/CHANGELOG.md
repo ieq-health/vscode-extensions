@@ -1,7 +1,13 @@
 # Change Log
 All notable changes to the "firmendatenq" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.1.6] - 2019-10-23
+
+### Added:
+- 'nur_telefon_nolink' and 'nur_e-mail_nolink'
+
+### Fixed:
+- Remove placeholder text
 
 ## [0.1.5] - 2019-09-19
 
