@@ -3,7 +3,7 @@
 	"name": "smile3d",
 	"displayName": "smile3d",
 	"description": "Insert Smile-3D Videos made easy",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ieq-health/vscode-smile3d.git"
@@ -15,7 +15,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:smile3d.insertcontent"
+		"onCommand:smile3d.insertvideo"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
