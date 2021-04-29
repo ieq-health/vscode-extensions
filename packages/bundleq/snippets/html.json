@@ -206,5 +206,30 @@
       "</div>",
     ],
     "description": "Fügt einen TogglerWrapper ein."
-  }
+  },
+  "imgFake": {
+    "scope": "html",
+    "prefix": "imgFake",
+    "body": [
+      "<picture>",
+      "\t<source media=\"(min-width: 1200px)\" srcset=\"https://www.placeholder-q.de/1920x980\">",
+      "<source media=\"(min-width: 768px)\" srcset=\"https://www.placeholder-q.de/1200x600\">",
+      "<source srcset=\"https://www.placeholder-q.de/768x768\">",
+      "<img class=\"w-100\" src=\"https://www.placeholder-q.de/1920x980\" alt=\"<IEQ-CMS function=\"InsertContentHeadline\" param=\"type=lang\"></IEQ-CMS>\">",
+      "</picture>",
+    ],
+    "description": "Picturetag mit Breakpoints und PlaceholderQ"
+  },
+  "videoItem": {
+    "scope": "html",
+    "prefix": "videoitem",
+    "body": [
+      "<video controls=\"\" controlslist=\"nodownload\">",
+      "\t<source src=\".mp4\" type=\"video/mp4; codecs=&quot;avc1.42E01E,mp4a.40.2&quot;\">",
+      "\t<source src=\".webm\" type=\"video/webm\">",
+      "\t<source src=\".ogv\" type=\"video/ogg; codecs=&quot;theora, vorbis&quot;\">",
+      "</video>",
+    ],
+    "description": "Video-Schnipsel zur Einbindung in die Website"
+  },
 }
