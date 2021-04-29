@@ -1,0 +1,99 @@
+{
+	"publisher": "christianbrassat",
+    "name": "bundleq",
+    "displayName": "bundleQ",
+    "description": "ieQ health extension bundle",
+    "version": "1.1.0",
+	"icon": "icon.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ieq-health/vscode-bundleQ.git"
+	},
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "categories": [
+        "Extension Packs"
+    ],
+    "extensionPack": [ 
+        "l7ssha.macrosre",
+		"nachocab.select-paragraph",
+		"christianbrassat.replacecommand",
+		"christianbrassat.contentq",
+		"christianbrassat.firmendatenq",
+		"formulahendry.auto-close-tag",
+		"formulahendry.auto-rename-tag",
+		"daiyy.quick-html-previewer",
+		"glavin001.unibeautify-vscode"
+    ],
+	"contributes": {
+		"keybindings": [
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "h1" },
+				"key": "ctrl+1"
+			},
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "h2" },
+				"key": "ctrl+2"
+			},
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "h3" },
+				"key": "ctrl+3"
+			},
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "h4" },
+				"key": "ctrl+4"
+			},
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "h5" },
+				"key": "ctrl+5"
+			},
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "h6" },
+				"key": "ctrl+6"
+			},
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "p*" },
+				"key": "ctrl+p"
+			},
+			{
+				"command": "editor.emmet.action.wrapWithAbbreviation",
+				"args": { "abbreviation": "strong" },
+				"key": "ctrl+b"
+			},
+			{
+				"command": "macros.linebreak",
+				"key": "shift+enter"
+			},
+			{
+				"command": "macros.auflistung",
+				"key": "ctrl+shift+u"
+			},
+			{
+				"command": "macros.tabularaza",
+				"key": "ctrl+shift+t"
+			},
+			{
+				"command": "macros.infobox",
+				"key": "ctrl+shift+i"
+			},
+			{
+				"command": "macros.floatbox",
+				"key": "ctrl+shift+f"
+			}
+		],
+		"snippets": [
+			{
+				"language": "html",
+				"path": "./snippets/html.json"
+			}
+		]
+	}
+}
