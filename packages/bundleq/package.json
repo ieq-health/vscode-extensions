@@ -3,7 +3,7 @@
   "name": "bundleq",
   "displayName": "bundleQ",
   "description": "ieQ health extension bundle",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "icon": "icon.png",
   "repository": {
     "type": "git",
@@ -23,6 +23,8 @@
     "christianbrassat.replacecommand",
     "christianbrassat.contentq",
     "christianbrassat.firmendatenq",
+    "christianbrassat.linq",
+    "christianbrassat.smile3d",
     "daiyy.quick-html-previewer",
     "glavin001.unibeautify-vscode",
     "formulahendry.auto-close-tag",
