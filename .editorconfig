@@ -1,0 +1,17 @@
+# Mirrors the maintainer's editor setup: tabs shown two columns wide.
+# Prettier reads indentation and line width from this file.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = tab
+indent_size = 2
+tab_width = 2
+max_line_length = 80
+
+# These formats require spaces
+[*.{yml,yaml,md}]
+indent_style = space

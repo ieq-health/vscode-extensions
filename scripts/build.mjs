@@ -5,6 +5,8 @@
 // Usage: node scripts/build.mjs <command> [package...]
 //
 //   check             validate manifests and type-check all packages
+//   lint              run oxlint, oxfmt (check only), rumdl and yamlfmt (lint only)
+//   format            apply oxlint fixes, then oxfmt, rumdl and yamlfmt formatting
 //   bundle [pkg...]   check, then bundle each code package to out/extension.js
 //   watch  [pkg...]   rebundle on change (no type-checking; see `npm run watch`)
 //   package [pkg...]  bundle, then build dist/<name>-<version>.vsix
@@ -15,7 +17,7 @@
 
 import { spawnSync } from 'node:child_process';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { delimiter, dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
 import { createVSIX, publishVSIX } from '@vscode/vsce';
@@ -118,6 +120,62 @@ function typecheck() {
 	if (result.status !== 0) {
 		fail('Type check failed');
 	}
+}
+
+/**
+ * Runs a CLI shipped as a Node script in node_modules.
+ * @param {string} script path below node_modules, e.g. oxlint/bin/oxlint
+ * @param {string[]} args
+ */
+function runNodeTool(script, args) {
+	return spawnSync(process.execPath, [join(root, 'node_modules', script), ...args], { cwd: root, stdio: 'inherit' }).status === 0;
+}
+
+/**
+ * Finds a native executable: node_modules/.bin first (if the tool is an npm
+ * dependency), then PATH. rumdl's npm binary is linked against glibc, which
+ * NixOS cannot run without nix-ld; yamlfmt is not on npm at all.
+ * @param {string} name
+ * @param {string} hint how to install it when missing
+ */
+function nativeTool(name, hint) {
+	const onPath = (process.env.PATH ?? '').split(delimiter)
+		.filter((dir) => dir && !dir.includes('node_modules'))
+		.map((dir) => join(dir, name));
+	for (const bin of [join(root, 'node_modules', '.bin', name), ...onPath]) {
+		if (existsSync(bin) && spawnSync(bin, ['--version'], { stdio: 'ignore' }).status === 0) {
+			return bin;
+		}
+	}
+	fail(`${name} cannot run. ${hint}`);
+}
+
+/** @param {string} bin @param {string[]} args */
+function runNative(bin, args) {
+	return spawnSync(bin, args, { cwd: root, stdio: 'inherit' }).status === 0;
+}
+
+const rumdl = () => nativeTool('rumdl', 'On NixOS, use `nix shell nixpkgs#rumdl` or enable programs.nix-ld.');
+const yamlfmt = () => nativeTool('yamlfmt', 'Install it from https://github.com/google/yamlfmt (or `nix shell nixpkgs#yamlfmt`).');
+
+function lint() {
+	const failed = [
+		['oxlint', () => runNodeTool('oxlint/bin/oxlint', [])],
+		['oxfmt', () => runNodeTool('oxfmt/bin/oxfmt', ['--check'])],
+		['rumdl', () => runNative(rumdl(), ['check', '.'])],
+		['yamlfmt', () => runNative(yamlfmt(), ['-lint', '.'])],
+	].filter(([, run]) => !run()).map(([name]) => name);
+	if (failed.length > 0) {
+		fail(`Lint failed: ${failed.join(', ')}. Run \`npm run format\` to fix what can be fixed automatically.`);
+	}
+}
+
+// Same order as the editor: oxlint fixes first, then oxfmt formats the result
+function format() {
+	runNodeTool('oxlint/bin/oxlint', ['--fix']);
+	runNodeTool('oxfmt/bin/oxfmt', ['--write']);
+	runNative(rumdl(), ['fmt', '.']);
+	runNative(yamlfmt(), ['.']);
 }
 
 function check() {
@@ -262,6 +320,12 @@ switch (command) {
 	case 'check':
 		check();
 		break;
+	case 'lint':
+		lint();
+		break;
+	case 'format':
+		format();
+		break;
 	case 'bundle':
 		await bundle(selectPackages(args));
 		break;
@@ -277,5 +341,5 @@ switch (command) {
 		await release(args[0]);
 		break;
 	default:
-		fail('Usage: node scripts/build.mjs <check|bundle|watch|package|release> [package...]');
+		fail('Usage: node scripts/build.mjs <check|lint|format|bundle|watch|package|release> [package...]');
 }

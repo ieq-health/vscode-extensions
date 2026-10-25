@@ -34,13 +34,21 @@ Run from the repository root:
 ```sh
 npm ci                         # install everything
 npm run check                  # validate manifests + type-check (fast; run this first)
+npm run lint                   # oxlint + oxfmt --check + rumdl check + yamlfmt -lint
+npm run format                 # oxlint --fix, then oxfmt + rumdl fmt + yamlfmt
 npm run build                  # check + bundle all packages
 npm run package                # check + bundle + dist/<name>-<version>.vsix for all
 npm run package -- linq        # one or more named packages
 ```
 
-There are no automated tests. To verify a change, run `npm run package`. For
-behaviour changes, use "Run Extension" from the root `.vscode/launch.json`.
+There are no automated tests. To verify a change, run `npm run format`, then
+`npm run lint` and `npm run package`; CI runs the last two. For behaviour
+changes, use "Run Extension" from the root `.vscode/launch.json`.
+
+yamlfmt is not on npm and must be on `PATH`. rumdl's npm binary does not run on
+NixOS. In both cases run lint/format inside
+`nix shell nixpkgs#rumdl nixpkgs#yamlfmt`; the build script falls back to
+binaries on `PATH`.
 
 ## Conventions
 
@@ -58,9 +66,15 @@ behaviour changes, use "Run Extension" from the root `.vscode/launch.json`.
   together.
 - `.vscode/launch.json` must list every package (picker input and "Run All
   Extensions"). The check enforces this.
-- Match each file's existing indentation: tabs in contentq, firmendatenq,
-  smile3d and root files; two spaces in linq and bundleq. There is no formatter
-  or linter configured.
+- Formatting is tool-enforced; don't hand-format. `.editorconfig` sets tabs
+  (width 2) everywhere except YAML and Markdown (spaces), LF, 80 columns.
+  oxfmt (defaults, double quotes) handles TS/JS/JSON; yamlfmt handles YAML;
+  rumdl handles Markdown (`.rumdl.toml`: 80-column reflow, code
+  blocks/tables/headings exempt). Tool versions are pinned to the
+  maintainer's editor; bump them together with the CI yamlfmt version. Run
+  `npm run format` after editing.
+- Fix oxlint findings instead of disabling rules. Avoid `any`: type values
+  properly (e.g. node-html-parser's `parse()` already returns `HTMLElement`).
 - Keep Marketplace identity fields (`publisher`, `name`) unchanged; changing
   them breaks updates for existing installs.
 - Commit messages should follow the Conventional Commits spec, using the

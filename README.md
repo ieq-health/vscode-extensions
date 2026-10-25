@@ -21,7 +21,7 @@ manifest, source and user-facing files.
 
 ```text
 .github/workflows/
-  ci.yml           check and package every extension on PRs and pushes to main
+  ci.yml           lint, check and package every extension on PRs and pushes to main
   release.yml      publish one extension when a <package>-v<version> tag is pushed
 .vscode/           launch configurations and watch tasks for all extensions
 packages/
@@ -35,6 +35,11 @@ package.json       npm workspaces root: toolchain, engines.vscode, npm scripts
 tsconfig.json      one TypeScript config covering packages/*/src
 .vscodeignore      one ignore file for every .vsix
 LICENSE            BSD-2-Clause, copied into every .vsix
+.editorconfig      indentation, line endings and width for every file
+.oxlintrc.json     oxlint rules
+.oxfmtrc.json      oxfmt config (the rest comes from .editorconfig)
+.rumdl.toml        Markdown lint and reflow rules
+.yamlfmt           YAML formatting
 AGENTS.md          guidance for coding agents
 ```
 
@@ -44,6 +49,12 @@ AGENTS.md          guidance for coding agents
 
 - Node.js 22 or newer (CI uses 22) and npm
 - VS Code 1.77 or newer
+- [yamlfmt](https://github.com/google/yamlfmt) 0.21 on your `PATH`, for
+  `npm run lint` and `npm run format`. It isn't distributed on npm.
+- On NixOS: rumdl from nixpkgs, or `programs.nix-ld.enable`. The rumdl binary
+  installed by npm is linked against glibc and can't run on NixOS otherwise.
+  The build script falls back to a rumdl on your `PATH`. Running
+  `nix shell nixpkgs#rumdl nixpkgs#yamlfmt` covers both.
 
 ### Setup
 
@@ -62,6 +73,8 @@ packages when none are given.
 
 ```sh
 npm run check                     # validate manifests and type-check everything
+npm run lint                      # oxlint, oxfmt (check), rumdl and yamlfmt (lint)
+npm run format                    # apply oxlint fixes, then oxfmt, rumdl and yamlfmt
 npm run build                     # check, then bundle every extension
 npm run package                   # check, bundle and build dist/<name>-<version>.vsix
 npm run package -- linq smile3d   # only these packages
@@ -118,8 +131,8 @@ load time.
 
 ### Testing
 
-There are no automated tests. Before opening a PR, run `npm run package` (CI
-does the same and attaches the `.vsix` files to the run as the `vsix`
+There are no automated tests. Before opening a PR, run `npm run lint` and
+`npm run package` (CI does the same and attaches the `.vsix` files to the run as the `vsix`
 artifact), and try any behaviour change in the Extension Development Host.
 
 ### Adding a dependency
@@ -176,9 +189,22 @@ package.
   add `scripts`, `devDependencies`, a `tsconfig.json` or a `.vscodeignore` to a
   package; extend `scripts/build.mjs` or the root files instead. `npm run check`
   enforces this.
-- **Formatting:** there is no formatter or linter. Match the indentation of the
-  file you edit: tabs in contentq, firmendatenq, smile3d and the root files;
-  two spaces in linq and bundleq.
+- **Formatting and linting** are enforced in CI by `npm run lint`:
+  - `.editorconfig`: UTF-8, LF, final newline, tabs displayed two columns wide
+    (spaces in YAML and Markdown), 80 columns.
+  - oxfmt formats TypeScript, JavaScript and JSON. It takes indentation and
+    width from `.editorconfig` and otherwise uses its defaults, including
+    double quotes (`.oxfmtrc.json`).
+  - oxlint checks TypeScript and JavaScript: its `correctness` rules, plus
+    `prefer-const` and `no-explicit-any` (`.oxlintrc.json`).
+  - rumdl lints and reflows Markdown to 80 columns (`.rumdl.toml`). Code blocks,
+    tables and headings are exempt.
+  - yamlfmt formats YAML (`.yamlfmt`).
+
+  Tool versions are pinned to match the maintainer's editor: oxlint, oxfmt and
+  rumdl in `package.json`, and yamlfmt in `.github/workflows/ci.yml`. Run
+  `npm run format` before committing, or let your editor do it. The recommended
+  VS Code extensions (`.vscode/extensions.json`) pick up these configs.
 - **Marketplace identity:** never change `publisher` or `name` in a package's
   `package.json`. The Marketplace ID is derived from them, and changing either
   breaks updates for everyone who has the extension installed.
