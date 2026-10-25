@@ -61,8 +61,8 @@ export function activate(context: vscode.ExtensionContext) {
 	}
 
 
-	let disposable = vscode.commands.registerCommand('firmendatenq.insertFirmendaten', () => {
-		let editor = vscode.window.activeTextEditor;
+	const disposable = vscode.commands.registerCommand('firmendatenq.insertFirmendaten', () => {
+		const editor = vscode.window.activeTextEditor;
 
 		vscode.window.showQuickPick(attributes, { canPickMany: true }).then(async pick => {
 			let separator = '';
