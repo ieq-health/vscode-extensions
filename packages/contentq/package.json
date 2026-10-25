@@ -1,24 +1,18 @@
 {
-	"publisher": "christianbrassat",
 	"name": "contentq",
 	"displayName": "contentQ",
-	"description": "InsertContent made easy",
 	"version": "0.0.4",
+	"description": "InsertContent made easy",
+	"categories": [
+		"Other"
+	],
 	"license": "BSD-2-Clause",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ieq-health/vscode-extensions.git",
 		"directory": "packages/contentq"
 	},
-	"engines": {
-		"vscode": "^1.77.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:extension.insertcontent"
-	],
+	"publisher": "christianbrassat",
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
@@ -27,5 +21,11 @@
 				"title": "contentQ: InsertContent"
 			}
 		]
+	},
+	"activationEvents": [
+		"onCommand:extension.insertcontent"
+	],
+	"engines": {
+		"vscode": "^1.77.0"
 	}
 }

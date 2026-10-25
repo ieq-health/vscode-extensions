@@ -16,8 +16,8 @@ Most users only need to install **bundleQ**, which pulls in everything else.
 
 ## Repository layout
 
-All build configuration lives at the root. A package contains only its
-manifest, source and user-facing files.
+All build configuration lives at the root. A package contains only its manifest,
+source and user-facing files.
 
 ```text
 .github/workflows/
@@ -52,8 +52,8 @@ AGENTS.md          guidance for coding agents
 - [yamlfmt](https://github.com/google/yamlfmt) 0.21 on your `PATH`, for
   `npm run lint` and `npm run format`. It isn't distributed on npm.
 - On NixOS: rumdl from nixpkgs, or `programs.nix-ld.enable`. The rumdl binary
-  installed by npm is linked against glibc and can't run on NixOS otherwise.
-  The build script falls back to a rumdl on your `PATH`. Running
+  installed by npm is linked against glibc and can't run on NixOS otherwise. The
+  build script falls back to a rumdl on your `PATH`. Running
   `nix shell nixpkgs#rumdl nixpkgs#yamlfmt` covers both.
 
 ### Setup
@@ -82,8 +82,8 @@ npm run watch                     # rebundle on change
 npm run watch:types               # type-check on change
 ```
 
-`npm run <script>` is shorthand for `node scripts/build.mjs <command>`, which you
-can also call directly.
+`npm run <script>` is shorthand for `node scripts/build.mjs <command>`, which
+you can also call directly.
 
 ### Running and debugging an extension
 
@@ -121,8 +121,8 @@ code --install-extension dist/linq-0.5.14.vsix
    `out/extension.js`.
 3. **Package:** vsce builds `dist/<name>-<version>.vsix` with
    `--no-dependencies`, the root `.vscodeignore` and the root `LICENSE`. It also
-   rewrites relative links in the package README to point at
-   `packages/<name>/` on GitHub.
+   rewrites relative links in the package README to point at `packages/<name>/`
+   on GitHub.
 
 Published extensions therefore always ship as one bundled file with no
 `node_modules`. This is required in a workspace (see
@@ -132,13 +132,14 @@ load time.
 ### Testing
 
 There are no automated tests. Before opening a PR, run `npm run lint` and
-`npm run package` (CI does the same and attaches the `.vsix` files to the run as the `vsix`
-artifact), and try any behaviour change in the Extension Development Host.
+`npm run package` (CI does the same and attaches the `.vsix` files to the run as
+the `vsix` artifact), and try any behaviour change in the Extension Development
+Host.
 
 ### Adding a dependency
 
-- **Build tooling** goes in the root `package.json`:
-  `npm install -D <pkg>` from the repository root.
+- **Build tooling** goes in the root `package.json`: `npm install -D <pkg>` from
+  the repository root.
 - **Runtime dependencies** go in the package:
   `npm install <pkg> --workspace packages/<name>`.
 
@@ -193,8 +194,8 @@ package.
   - `.editorconfig`: UTF-8, LF, final newline, tabs displayed two columns wide
     (spaces in YAML and Markdown), 80 columns.
   - oxfmt formats TypeScript, JavaScript and JSON. It takes indentation and
-    width from `.editorconfig` and otherwise uses its defaults, including
-    double quotes (`.oxfmtrc.json`).
+    width from `.editorconfig` and otherwise uses its defaults, including double
+    quotes (`.oxfmtrc.json`).
   - oxlint checks TypeScript and JavaScript: its `correctness` rules, plus
     `prefer-const` and `no-explicit-any` (`.oxlintrc.json`).
   - rumdl lints and reflows Markdown to 80 columns (`.rumdl.toml`). Code blocks,
@@ -225,7 +226,8 @@ No approving review is required, so you can merge your own PR once CI is green.
 When squash-merging, make sure the squash commit title is a valid Conventional
 Commit, as it becomes the commit on `main`.
 
-Release tags are not affected by branch protection (see [Releasing](#releasing)).
+Release tags are not affected by branch protection (see
+[Releasing](#releasing)).
 
 ### With Git
 
@@ -328,9 +330,9 @@ Things to avoid in jj:
 - don't `jj bookmark move main` or `jj git push --bookmark main`. The push will
   be rejected anyway, but it leaves your local `main` diverged from
   `main@origin`;
-- don't use `git commit`/`git rebase` in a colocated repo for the same
-  change you're editing with jj. If you do run Git commands, run `jj status`
-  afterwards so jj picks up the changes.
+- don't use `git commit`/`git rebase` in a colocated repo for the same change
+  you're editing with jj. If you do run Git commands, run `jj status` afterwards
+  so jj picks up the changes.
 
 ## Releasing
 
@@ -339,8 +341,8 @@ Each extension is released independently by pushing a tag named
 
 1. **Choose the version.** Check the current Marketplace version first. Some
    versions were published from outside the repository (contentq 0.0.5, bundleq
-   1.3.2), so the new version must be higher than what is live, not only what
-   is in `package.json`.
+   1.3.2), so the new version must be higher than what is live, not only what is
+   in `package.json`.
 2. **Open a PR** that bumps `version` in `packages/<name>/package.json` and adds
    a `CHANGELOG.md` entry, e.g. `chore(linq): release 0.5.15`. Merge it.
 3. **Tag the merged commit on `main` and push the tag.**
@@ -363,8 +365,9 @@ Each extension is released independently by pushing a tag named
 
 4. The **Release** workflow runs `node scripts/build.mjs release <tag>`, which
    checks that the tag's version matches `packages/<name>/package.json`, runs
-   all checks, packages the extension and publishes it. Follow it under the repository's Actions tab. The new version
-   usually shows up on the Marketplace within a few minutes.
+   all checks, packages the extension and publishes it. Follow it under the
+   repository's Actions tab. The new version usually shows up on the Marketplace
+   within a few minutes.
 
 If the workflow fails before publishing, fix the problem in a PR, then delete
 and re-create the tag on the new commit:
@@ -404,6 +407,6 @@ changes: the extension list, keybindings or snippets.
 ## History
 
 This repository combines the former `vscode-contentQ`, `vscode-firmendatenQ`,
-`vscode-linQ`, `vscode-smile3d` and `vscode-bundleQ` repositories, which are
-now archived. Their full histories are preserved under `packages/<name>/`.
+`vscode-linQ`, `vscode-smile3d` and `vscode-bundleQ` repositories, which are now
+archived. Their full histories are preserved under `packages/<name>/`.
 `git log -- packages/<name>` shows a single package's history.

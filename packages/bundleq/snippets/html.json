@@ -1,247 +1,241 @@
 {
+	"Content Image": {
+		"scope": "html",
+		"prefix": "IMGcontent",
+		"description": "Fügt die Vorlage für das Content-IMG ein.",
+		"body": [
+			"<img class=\"content-img\" src=\"$1\" alt=\"<IEQ-CMS function=\"InsertContentHeadline\" param=\"type=lang\"></IEQ-CMS>\">"
+		]
+	},
 
-  "Content Image": {
-    "scope": "html",
-    "prefix": "IMGcontent",
-    "description": "Fügt die Vorlage für das Content-IMG ein.",
-    "body": [
-      "<img class=\"content-img\" src=\"$1\" alt=\"<IEQ-CMS function=\"InsertContentHeadline\" param=\"type=lang\"></IEQ-CMS>\">"
-    ]
-  },
+	"Link Extern": {
+		"scope": "html",
+		"prefix": "linkext",
+		"description": "Externen Link inkl. target & rel einfügen",
+		"body": [
+			"<a href=\"$1\" title=\"Gehe zu: $2\" target=\"_blank\" rel=\"noopener nofollow\">"
+		]
+	},
 
-  "Link Extern": {
-    "scope": "html",
-    "prefix": "linkext",
-    "description": "Externen Link inkl. target & rel einfügen",
-    "body": [
-      "<a href=\"$1\" title=\"Gehe zu: $2\" target=\"_blank\" rel=\"noopener nofollow\">"
-    ]
-  },
+	"Link Intern": {
+		"scope": "html",
+		"prefix": "linkint",
+		"description": "Internen Link einfügen",
+		"body": [
+			"<a href=\"http:/scripts/show.aspx?content=$1\" title=\"Gehe zu: $2\">"
+		]
+	},
 
-  "Link Intern": {
-    "scope": "html",
-    "prefix": "linkint",
-    "description": "Internen Link einfügen",
-    "body": [
-      "<a href=\"http:/scripts/show.aspx?content=$1\" title=\"Gehe zu: $2\">"
-    ]
-  },
+	"Link Media": {
+		"scope": "html",
+		"prefix": "linkmedia",
+		"description": "Medien-Link inkl. /scripts-Pfadanfang und Title einfügen",
+		"body": [
+			"<a href=\"http:/scripts/get.aspx?media=/shop/layout/home/$1\" title=\"Gehe zu: $2\" target=\"_blank\">"
+		]
+	},
 
-  "Link Media": {
-    "scope": "html",
-    "prefix": "linkmedia",
-    "description": "Medien-Link inkl. /scripts-Pfadanfang und Title einfügen",
-    "body": [
-      "<a href=\"http:/scripts/get.aspx?media=/shop/layout/home/$1\" title=\"Gehe zu: $2\" target=\"_blank\">"
-    ]
-  },
+	"Fake Image": {
+		"scope": "html",
+		"prefix": "imgFake",
+		"description": "Picturetag mit Breakpoints und PlaceholderQ",
+		"body": [
+			"<picture>",
+			"\t<source media=\"(min-width: 1200px)\" srcset=\"https://www.placeholder-q.de/1920x980\">",
+			"<source media=\"(min-width: 768px)\" srcset=\"https://www.placeholder-q.de/1200x600\">",
+			"<source srcset=\"https://www.placeholder-q.de/768x768\">",
+			"<img class=\"w-100\" src=\"https://www.placeholder-q.de/1920x980\" alt=\"<IEQ-CMS function=\"InsertContentHeadline\" param=\"type=lang\"></IEQ-CMS>\">",
+			"</picture>"
+		]
+	},
 
-  "Fake Image": {
-    "scope": "html",
-    "prefix": "imgFake",
-    "description": "Picturetag mit Breakpoints und PlaceholderQ",
-    "body": [
-      "<picture>",
-      "\t<source media=\"(min-width: 1200px)\" srcset=\"https://www.placeholder-q.de/1920x980\">",
-      "<source media=\"(min-width: 768px)\" srcset=\"https://www.placeholder-q.de/1200x600\">",
-      "<source srcset=\"https://www.placeholder-q.de/768x768\">",
-      "<img class=\"w-100\" src=\"https://www.placeholder-q.de/1920x980\" alt=\"<IEQ-CMS function=\"InsertContentHeadline\" param=\"type=lang\"></IEQ-CMS>\">",
-      "</picture>",
-    ]
-  },
+	"Galerie": {
+		"scope": "html",
+		"prefix": "galerie",
+		"description": "Bildergalerie einfügen",
+		"body": [
+			"<h1>$1</h1>",
+			"<div class=\"q-gallery gallery grid row\">",
+			"\t<div class=\"grid-sizer\"></div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-01.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-02.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-03.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-04.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-05.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-06.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-07.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-08.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-09.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-10.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-11.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"\t<div class=\"grid-item\">",
+			"\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-12.jpg\" alt=\"Fotogalerie\" />",
+			"\t</div>",
+			"</div>",
+			"<script>",
+			"\t$(document).ready(function () {",
+			"\t\t$('.gallery .grid-item, .gallery .grid-sizer').addClass('col-sm-6');",
+			"\t\tvar grid = $('.grid').imagesLoaded(function () {",
+			"\t\t\tgrid.masonry({",
+			"\t\t\t\titemSelector: '.grid-item',",
+			"\t\t\t\tcolumnWidth: '.grid-sizer',",
+			"\t\t\t\tpercentPosition: true",
+			"\t\t\t});",
+			"\t\t});",
+			"\t});",
+			"</script>"
+		]
+	},
 
-  "Galerie": {
-    "scope": "html",
-    "prefix": "galerie",
-    "description": "Bildergalerie einfügen",
-    "body": [
-      "<h1>$1</h1>",
-      "<div class=\"q-gallery gallery grid row\">",
-      "\t<div class=\"grid-sizer\"></div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-01.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-02.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-03.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-04.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-05.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-06.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-07.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-08.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-09.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-10.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-11.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "\t<div class=\"grid-item\">",
-      "\t\t<img class=\"img-responsive\" src=\"http:/scripts/get.aspx?media=/shop/layout/home/galerie-zahnarztpraxis-$2-12.jpg\" alt=\"Fotogalerie\" />",
-      "\t</div>",
-      "</div>",
-      "<script>",
-      "\t$(document).ready(function () {",
-      "\t\t$('.gallery .grid-item, .gallery .grid-sizer').addClass('col-sm-6');",
-      "\t\tvar grid = $('.grid').imagesLoaded(function () {",
-      "\t\t\tgrid.masonry({",
-      "\t\t\t\titemSelector: '.grid-item',",
-      "\t\t\t\tcolumnWidth: '.grid-sizer',",
-      "\t\t\t\tpercentPosition: true",
-      "\t\t\t});",
-      "\t\t});",
-      "\t});",
-      "</script>"
-    ]
-  },
+	"InsertOTW": {
+		"scope": "html",
+		"prefix": "ieqOTW",
+		"description": "Erzeugt ein Kontaktformular mit Captcha. Diese Funktion ist sehr umfassend. Es gibt sehr viele Möglichkeiten das Kontaktformular zu gestalten.",
+		"body": [
+			"<IEQ-CMS function=\"InsertKontaktformular\" param=\"",
+			"\tanzeigefelder=",
+			"\t\tfieldset:Terminwunsch,",
+			"\t\t\tcombobox1:Bevorzugter Wochentag,",
+			"\t\t\tcombobox2:Bevorzugte Zeit,",
+			"\t\t\tcombobox3:Terminart,",
+			"\t\t\tcombobox4:Bevorzugter Behandler,",
+			"\t\tfieldsetend,",
+			"\t\ttext_fett:Persönliche Daten,",
+			"\t\tanrede, vorname, name, strasse, plz, ort, telefon, mail,",
+			"\t\ttextarea1:Ihre Nachricht;",
+			"\tcombobox1=",
+			"\t--- Bitte wählen ---,",
+			"\t\tmontags,",
+			"\t\tdienstags,",
+			"\t\tmittwochs,",
+			"\t\tdonnerstags,",
+			"\t\tfreitags;",
+			"\tcombobox2=",
+			"\t--- Bitte wählen ---,",
+			"\t\tvormittags,",
+			"\t\tnachmittags;",
+			"\tcombobox3=",
+			"\t--- Bitte wählen ---,",
+			"\t\tErsttermin / Neupatient,",
+			"\t\tBeratung / zweite Meinung,",
+			"\t\tBehandlung,",
+			"\t\tVorsorgeuntersuchung / Kontrolle,",
+			"\t\tProphylaxe,",
+			"\t\tSonstiges;",
+			"\tcombobox4=",
+			"\t--- Bitte wählen ---,",
+			"\t\tKein besonderer Wunsch,",
+			"\t\tDr. Musterfrau##komma## M.Sc.,",
+			"\t\tDr. Mustermann;",
+			"\tlayout=kompakt;",
+			"\tpflichtfelder=mail;",
+			"\tbetreff=Online-Terminwunsch;\">",
+			"</IEQ-CMS>"
+		]
+	},
 
-  "InsertOTW": {
-    "scope": "html",
-    "prefix": "ieqOTW",
-    "description": "Erzeugt ein Kontaktformular mit Captcha. Diese Funktion ist sehr umfassend. Es gibt sehr viele Möglichkeiten das Kontaktformular zu gestalten.",
-    "body": [
-      "<IEQ-CMS function=\"InsertKontaktformular\" param=\"",
-      "\tanzeigefelder=",
-      "\t\tfieldset:Terminwunsch,",
-      "\t\t\tcombobox1:Bevorzugter Wochentag,",
-      "\t\t\tcombobox2:Bevorzugte Zeit,",
-      "\t\t\tcombobox3:Terminart,",
-      "\t\t\tcombobox4:Bevorzugter Behandler,",
-      "\t\tfieldsetend,",
-      "\t\ttext_fett:Persönliche Daten,",
-      "\t\tanrede, vorname, name, strasse, plz, ort, telefon, mail,",
-      "\t\ttextarea1:Ihre Nachricht;",
-      "\tcombobox1=",
-      "\t--- Bitte wählen ---,",
-      "\t\tmontags,",
-      "\t\tdienstags,",
-      "\t\tmittwochs,",
-      "\t\tdonnerstags,",
-      "\t\tfreitags;",
-      "\tcombobox2=",
-      "\t--- Bitte wählen ---,",
-      "\t\tvormittags,",
-      "\t\tnachmittags;",
-      "\tcombobox3=",
-      "\t--- Bitte wählen ---,",
-      "\t\tErsttermin / Neupatient,",
-      "\t\tBeratung / zweite Meinung,",
-      "\t\tBehandlung,",
-      "\t\tVorsorgeuntersuchung / Kontrolle,",
-      "\t\tProphylaxe,",
-      "\t\tSonstiges;",
-      "\tcombobox4=",
-      "\t--- Bitte wählen ---,",
-      "\t\tKein besonderer Wunsch,",
-      "\t\tDr. Musterfrau##komma## M.Sc.,",
-      "\t\tDr. Mustermann;",
-      "\tlayout=kompakt;",
-      "\tpflichtfelder=mail;",
-      "\tbetreff=Online-Terminwunsch;\">",
-      "</IEQ-CMS>"
-    ]
-  },
+	"ModalFancy": {
+		"scope": "html",
+		"prefix": "fancymodal",
+		"description": "Modal einfügen",
+		"body": [
+			"<div class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" id=\"$1\">",
+			"\t<div class=\"modal-dialog modal-lg\" role=\"document\">",
+			"\t\t<div class=\"modal-content\">",
+			"\t\t\t<div class=\"modal-body\">",
+			"\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
+			"\t$0",
+			"\t\t\t</div>",
+			"\t\t</div>",
+			"\t</div>",
+			"</div>",
+			"<script>",
+			"\t$(document).ready(function() {",
+			"\t\t$('#$1').modal('show');",
+			"\t});",
+			"</script>",
+			"",
+			"<IEQ-CMS function=\"InsertContent\" param=\"content=/health/dental/home/fancybox/$3;kurzfassung=nein\">InsertContent Langfassung - fancybox</IEQ-CMS>"
+		]
+	},
 
-  "ModalFancy": {
-    "scope": "html",
-    "prefix": "fancymodal",
-    "description": "Modal einfügen",
-    "body": [
-      "<div class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" id=\"$1\">",
-      "\t<div class=\"modal-dialog modal-lg\" role=\"document\">",
-      "\t\t<div class=\"modal-content\">",
-      "\t\t\t<div class=\"modal-body\">",
-      "\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
-      "\t$0",
-      "\t\t\t</div>",
-      "\t\t</div>",
-      "\t</div>",
-      "</div>",
-      "<script>",
-      "\t$(document).ready(function() {",
-      "\t\t$('#$1').modal('show');",
-      "\t});",
-      "</script>",
-      "",
-      "<IEQ-CMS function=\"InsertContent\" param=\"content=/health/dental/home/fancybox/$3;kurzfassung=nein\">InsertContent Langfassung - fancybox</IEQ-CMS>"
-    ]
-  },
+	"Modal": {
+		"scope": "html",
+		"prefix": "modal",
+		"description": "Modal einfügen",
+		"body": [
+			"<a href=\"#$1\" data-toggle=\"modal\" title=\"Gehe zu: $2\">",
+			"",
+			"<!-- MODAL $2 -->",
+			"<div class=\"modal fade slide right\" tabindex=\"-1\" role=\"dialog\" id=\"$1\">",
+			"\t<div class=\"modal-dialog modal-lg\" role=\"document\">",
+			"\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
+			"\t\t<div class=\"modal-content\">",
+			"\t\t\t<div class=\"modal-body\">",
+			"\t\t\t\t<IEQ-CMS function=\"InsertContent\" param=\"content=/health/dental/$3;\"></IEQ-CMS>",
+			"\t\t\t\t<p><a href=\"javascript:NeuesFenster('http:/scripts/druckversion.aspx?content=/health/dental/$3', 'Druckversion', 'resizable=yes,scrollBars=yes,height=700,width=660');\" class=\"btn\"><i class=\"fa fa-print\"></i> Drucken</a> <a href=\"javascript:NeuesFenster('http:/pdf/scripts/druckversion.aspx?content=/health/dental/$3&amp;downpdf=1', 'PDF', 'resizable=yes,scrollBars=yes,height=700,width=660');\" class=\"btn\"><i class=\"fa fa-file-pdf-o\"></i> PDF</a></p>",
+			"\t\t\t</div>",
+			"\t\t</div>",
+			"\t</div>",
+			"</div>"
+		]
+	},
 
-  "Modal": {
-    "scope": "html",
-    "prefix": "modal",
-    "description": "Modal einfügen",
-    "body": [
-      "<a href=\"#$1\" data-toggle=\"modal\" title=\"Gehe zu: $2\">",
-      "",
-      "<!-- MODAL $2 -->",
-      "<div class=\"modal fade slide right\" tabindex=\"-1\" role=\"dialog\" id=\"$1\">",
-      "\t<div class=\"modal-dialog modal-lg\" role=\"document\">",
-      "\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
-      "\t\t<div class=\"modal-content\">",
-      "\t\t\t<div class=\"modal-body\">",
-      "\t\t\t\t<IEQ-CMS function=\"InsertContent\" param=\"content=/health/dental/$3;\"></IEQ-CMS>",
-      "\t\t\t\t<p><a href=\"javascript:NeuesFenster('http:/scripts/druckversion.aspx?content=/health/dental/$3', 'Druckversion', 'resizable=yes,scrollBars=yes,height=700,width=660');\" class=\"btn\"><i class=\"fa fa-print\"></i> Drucken</a> <a href=\"javascript:NeuesFenster('http:/pdf/scripts/druckversion.aspx?content=/health/dental/$3&amp;downpdf=1', 'PDF', 'resizable=yes,scrollBars=yes,height=700,width=660');\" class=\"btn\"><i class=\"fa fa-file-pdf-o\"></i> PDF</a></p>",
-      "\t\t\t</div>",
-      "\t\t</div>",
-      "\t</div>",
-      "</div>"
-    ]
-  },
+	"TogglerItem": {
+		"scope": "html",
+		"prefix": "togglitem",
+		"description": "Fügt eine Toggler Item ein.",
+		"body": [
+			"<a class=\"btn-toggler\" data-toggle=\"collapse\" href=\"#toggle_$1\" aria-expanded=\"false\">",
+			"\t<h3>$2</h3>",
+			"</a>",
+			"<div class=\"collapse\" id=\"toggle_$1\">",
+			"\t<div class=\"toggle-content\">",
+			"\t\t$3",
+			"\t</div>",
+			"</div>"
+		]
+	},
 
-  "TogglerItem": {
-    "scope": "html",
-    "prefix": "togglitem",
-    "description": "Fügt eine Toggler Item ein.",
-    "body": [
-      "<a class=\"btn-toggler\" data-toggle=\"collapse\" href=\"#toggle_$1\" aria-expanded=\"false\">",
-      "\t<h3>$2</h3>",
-      "</a>",
-      "<div class=\"collapse\" id=\"toggle_$1\">",
-      "\t<div class=\"toggle-content\">",
-      "\t\t$3",
-      "\t</div>",
-      "</div>"
-    ]
-  },
+	"TogglerWrap": {
+		"scope": "html",
+		"prefix": "togglwrap",
+		"description": "Fügt einen TogglerWrapper ein.",
+		"body": ["<div class=\"toggle-wrapper\">", "\t$0", "</div>"]
+	},
 
-  "TogglerWrap": {
-    "scope": "html",
-    "prefix": "togglwrap",
-    "description": "Fügt einen TogglerWrapper ein.",
-    "body": [
-      "<div class=\"toggle-wrapper\">",
-      "\t$0",
-      "</div>"
-    ]
-  },
-
-  "videoItem": {
-    "scope": "html",
-    "prefix": "videoitem",
-    "description": "Video-Schnipsel zur Einbindung in die Website",
-    "body": [
-      "<video controls=\"\" controlslist=\"nodownload\">",
-      "\t<source src=\".mp4\" type=\"video/mp4; codecs=&quot;avc1.42E01E,mp4a.40.2&quot;\">",
-      "\t<source src=\".webm\" type=\"video/webm\">",
-      "\t<source src=\".ogv\" type=\"video/ogg; codecs=&quot;theora, vorbis&quot;\">",
-      "</video>"
-    ]
-  }
-
+	"videoItem": {
+		"scope": "html",
+		"prefix": "videoitem",
+		"description": "Video-Schnipsel zur Einbindung in die Website",
+		"body": [
+			"<video controls=\"\" controlslist=\"nodownload\">",
+			"\t<source src=\".mp4\" type=\"video/mp4; codecs=&quot;avc1.42E01E,mp4a.40.2&quot;\">",
+			"\t<source src=\".webm\" type=\"video/webm\">",
+			"\t<source src=\".ogv\" type=\"video/ogg; codecs=&quot;theora, vorbis&quot;\">",
+			"</video>"
+		]
+	}
 }

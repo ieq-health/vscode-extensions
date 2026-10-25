@@ -1,24 +1,18 @@
 {
-	"publisher": "christianbrassat",
 	"name": "smile3d",
 	"displayName": "smile3d",
-	"description": "Insert Smile-3D Videos made easy",
 	"version": "0.0.3",
+	"description": "Insert Smile-3D Videos made easy",
+	"categories": [
+		"Other"
+	],
 	"license": "BSD-2-Clause",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ieq-health/vscode-extensions.git",
 		"directory": "packages/smile3d"
 	},
-	"engines": {
-		"vscode": "^1.77.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:smile3d.insertvideo"
-	],
+	"publisher": "christianbrassat",
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
@@ -27,5 +21,11 @@
 				"title": "smile3d: Insert Video"
 			}
 		]
+	},
+	"activationEvents": [
+		"onCommand:smile3d.insertvideo"
+	],
+	"engines": {
+		"vscode": "^1.77.0"
 	}
 }

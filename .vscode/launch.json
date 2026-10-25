@@ -9,9 +9,7 @@
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}/packages/${input:package}"
 			],
-			"outFiles": [
-				"${workspaceFolder}/packages/*/out/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/packages/*/out/**/*.js"],
 			"preLaunchTask": "watch"
 		},
 		{
@@ -25,9 +23,7 @@
 				"--extensionDevelopmentPath=${workspaceFolder}/packages/linq",
 				"--extensionDevelopmentPath=${workspaceFolder}/packages/smile3d"
 			],
-			"outFiles": [
-				"${workspaceFolder}/packages/*/out/**/*.js"
-			],
+			"outFiles": ["${workspaceFolder}/packages/*/out/**/*.js"],
 			"preLaunchTask": "watch"
 		}
 	],

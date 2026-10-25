@@ -6,9 +6,8 @@ human-facing overview.
 ## Layout
 
 npm workspaces monorepo of VS Code extensions published under the
-`christianbrassat` Marketplace publisher. All build configuration is
-centralized at the root; packages hold only a manifest, source and user-facing
-files.
+`christianbrassat` Marketplace publisher. All build configuration is centralized
+at the root; packages hold only a manifest, source and user-facing files.
 
 ```text
 packages/
@@ -24,8 +23,8 @@ tsconfig.json      single TypeScript config for packages/*/src (noEmit)
 LICENSE            BSD-2-Clause, copied into each .vsix at package time
 ```
 
-Each code package is a single `src/extension.ts`, bundled to
-`out/extension.js`. Extension UI strings and content are German.
+Each code package is a single `src/extension.ts`, bundled to `out/extension.js`.
+Extension UI strings and content are German.
 
 ## Commands
 
@@ -58,27 +57,25 @@ binaries on `PATH`.
   `scripts`/`devDependencies`.
 - Manifests are validated by `validateManifests()` in `scripts/build.mjs`: the
   name equals the directory name, plus fixed `publisher`, `license`,
-  `repository`, `main` and `engines.vscode`. If a check fails, fix the
-  manifest, not the check, unless the shared setting itself is meant to
-  change.
+  `repository`, `main` and `engines.vscode`. If a check fails, fix the manifest,
+  not the check, unless the shared setting itself is meant to change.
 - The VS Code version is set in the root `package.json` `engines.vscode`.
   Packages and root `@types/vscode` must match it, so change all of them
   together.
 - `.vscode/launch.json` must list every package (picker input and "Run All
   Extensions"). The check enforces this.
 - Formatting is tool-enforced; don't hand-format. `.editorconfig` sets tabs
-  (width 2) everywhere except YAML and Markdown (spaces), LF, 80 columns.
-  oxfmt (defaults, double quotes) handles TS/JS/JSON; yamlfmt handles YAML;
-  rumdl handles Markdown (`.rumdl.toml`: 80-column reflow, code
-  blocks/tables/headings exempt). Tool versions are pinned to the
-  maintainer's editor; bump them together with the CI yamlfmt version. Run
-  `npm run format` after editing.
+  (width 2) everywhere except YAML and Markdown (spaces), LF, 80 columns. oxfmt
+  (defaults, double quotes) handles TS/JS/JSON; yamlfmt handles YAML; rumdl
+  handles Markdown (`.rumdl.toml`: 80-column reflow, code blocks/tables/headings
+  exempt). Tool versions are pinned to the maintainer's editor; bump them
+  together with the CI yamlfmt version. Run `npm run format` after editing.
 - Fix oxlint findings instead of disabling rules. Avoid `any`: type values
   properly (e.g. node-html-parser's `parse()` already returns `HTMLElement`).
 - Keep Marketplace identity fields (`publisher`, `name`) unchanged; changing
   them breaks updates for existing installs.
-- Commit messages should follow the Conventional Commits spec, using the
-  package name as the scope for single-package changes (e.g. `fix(linq): ...`).
+- Commit messages should follow the Conventional Commits spec, using the package
+  name as the scope for single-package changes (e.g. `fix(linq): ...`).
 
 ## Packaging gotchas
 

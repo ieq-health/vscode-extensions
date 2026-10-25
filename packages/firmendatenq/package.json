@@ -1,24 +1,18 @@
 {
-	"publisher": "christianbrassat",
 	"name": "firmendatenq",
 	"displayName": "firmendatenQ",
-	"description": "Insert Firmendaten",
 	"version": "0.1.6",
+	"description": "Insert Firmendaten",
+	"categories": [
+		"Other"
+	],
 	"license": "BSD-2-Clause",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ieq-health/vscode-extensions.git",
 		"directory": "packages/firmendatenq"
 	},
-	"engines": {
-		"vscode": "^1.77.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:firmendatenq.insertFirmendaten"
-	],
+	"publisher": "christianbrassat",
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
@@ -27,5 +21,11 @@
 				"title": "firmendatenQ: Insert Firmendaten"
 			}
 		]
+	},
+	"activationEvents": [
+		"onCommand:firmendatenq.insertFirmendaten"
+	],
+	"engines": {
+		"vscode": "^1.77.0"
 	}
 }

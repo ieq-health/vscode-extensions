@@ -1,6 +1,7 @@
 # Change Log
 
-All notable changes to the "bundleq" extension pack will be documented in this file.
+All notable changes to the "bundleq" extension pack will be documented in this
+file.
 
 ## [1.4.0]
 
