@@ -206,6 +206,8 @@ package.
   rumdl in `package.json`, and yamlfmt in `.github/workflows/ci.yml`. Run
   `npm run format` before committing, or let your editor do it. The recommended
   VS Code extensions (`.vscode/extensions.json`) pick up these configs.
+
+  **This is not optional:** the CI **will** yell at you.
 - **Marketplace identity:** never change `publisher` or `name` in a package's
   `package.json`. The Marketplace ID is derived from them, and changing either
   breaks updates for everyone who has the extension installed.
