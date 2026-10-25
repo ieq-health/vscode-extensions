@@ -1,14 +1,14 @@
 # AGENTS.md
 
-Guidance for coding agents working in this repository. See `README.md` for
-the human-facing overview.
+Guidance for coding agents working in this repository. See `README.md` for the
+human-facing overview.
 
 ## Layout
 
 npm workspaces monorepo of VS Code extensions published under the
 `christianbrassat` Marketplace publisher.
 
-```
+```text
 packages/
   bundleq/       extension pack (no code): extensionPack, keybindings, HTML snippets
   contentq/      contentQ: insert content paths (src/extension.ts)
@@ -18,8 +18,8 @@ packages/
 tsconfig.base.json  shared compiler options; each package extends it
 ```
 
-Each code package is a single `src/extension.ts` compiled to `out/`.
-Extension UI strings and content are German.
+Each code package is a single `src/extension.ts` compiled to `out/`. Extension
+UI strings and content are German.
 
 ## Commands
 
@@ -48,26 +48,27 @@ folder in VS Code and use the "Run Extension" launch configuration.
   formatter or linter configured.
 - Keep Marketplace identity fields (`publisher`, `name`) unchanged; changing
   them breaks updates for existing installs.
+- Commit messages should follow the Conventional Commits spec
 
 ## Packaging gotchas
 
-- Packages are built with `vsce package --no-dependencies`. With npm
-  workspaces, dependencies are hoisted to the root, and letting vsce collect
-  them pulls the whole monorepo into the `.vsix`.
+- Packages are built with `vsce package --no-dependencies`. With npm workspaces,
+  dependencies are hoisted to the root, and letting vsce collect them pulls the
+  whole monorepo into the `.vsix`.
 - Therefore any package with runtime `dependencies` must be bundled. linq does
   this with esbuild in its `bundle` script (run by `vscode:prepublish`). Copy
   that pattern if another package gains a runtime dependency.
-- `bundleq/package.json` `extensionPack` may only reference extensions that
-  are already published on the Marketplace.
+- `bundleq/package.json` `extensionPack` may only reference extensions that are
+  already published on the Marketplace.
 
 ## Workflow and releases
 
 - `main` is protected: all changes go through pull requests, and CI
   (`.github/workflows/ci.yml`, one job per package) must pass.
-- Each package is versioned independently. To release one, bump `version` in
-  its `package.json`, add a `CHANGELOG.md` entry, merge, then push a tag
+- Each package is versioned independently. To release one, bump `version` in its
+  `package.json`, add a `CHANGELOG.md` entry, merge, then push a tag
   `<package>-v<version>` (e.g. `linq-v0.5.15`). `release.yml` verifies the tag
   matches `package.json` and publishes with the `PUBLISHER_TOKEN` secret.
-- Before choosing a version, check the Marketplace: some versions were
-  published without being committed (contentq 0.0.5, bundleq 1.3.2), so the
-  next version must be higher than what is live, not just what is in the repo.
+- Before choosing a version, check the Marketplace: some versions were published
+  without being committed (contentq 0.0.5, bundleq 1.3.2), so the next version
+  must be higher than what is live, not just what is in the repo.
