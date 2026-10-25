@@ -355,10 +355,10 @@ Things to avoid in jj:
 Each extension is released independently by pushing a tag named
 `<package>-v<version>` that points at a commit on `main`.
 
-1. **Choose the version.** Check the current Marketplace version first. Some
-   versions were published from outside the repository (contentq 0.0.5, bundleq
-   1.3.2), so the new version must be higher than what is live, not only what is
-   in `package.json`.
+1. **Choose the version.** It must be higher than the current Marketplace
+   version. The repository records every published version, but check the
+   Marketplace anyway: contentq 0.0.5 and bundleq 1.3.2 were once published
+   without being committed.
 2. **Open a PR** that bumps `version` in `packages/<name>/package.json` and adds
    a `CHANGELOG.md` entry, e.g. `chore(linq): release 0.5.15`. Merge it.
 3. **Tag the merged commit on `main` and push the tag.**

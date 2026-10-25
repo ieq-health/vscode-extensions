@@ -96,6 +96,6 @@ back to binaries on `PATH`.
   `<package>-v<version>` (e.g. `linq-v0.5.15`). `release.yml` runs
   `node scripts/build.mjs release <tag>`, which verifies the tag against
   `package.json` and publishes with the `PUBLISHER_TOKEN` secret.
-- Before choosing a version, check the Marketplace: some versions were published
-  without being committed (contentq 0.0.5, bundleq 1.3.2), so the next version
-  must be higher than what is live, not just what is in the repo.
+- A new version must be higher than the live Marketplace version. Check it
+  before choosing: contentq 0.0.5 and bundleq 1.3.2 were once published without
+  being committed (both are now recorded in their changelogs).

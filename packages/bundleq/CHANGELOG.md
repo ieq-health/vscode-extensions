@@ -5,8 +5,15 @@ file.
 
 ## [1.4.0]
 
-- Add linQ and smile3d to the extension pack
+- Add smile3d to the extension pack
 - Require VS Code 1.77 or newer
+
+## [1.3.2] - 2024-04-15
+
+Published to the Marketplace without being committed; reconstructed from the
+published package.
+
+- Add linQ to the extension pack
 
 ## [1.3.1]
 
