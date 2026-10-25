@@ -40,6 +40,7 @@ LICENSE            BSD-2-Clause, copied into every .vsix
 .oxfmtrc.json      oxfmt config (the rest comes from .editorconfig)
 .rumdl.toml        Markdown lint and reflow rules
 .yamlfmt           YAML formatting
+flake.nix          Nix dev shell (Node.js, rumdl, yamlfmt); .envrc loads it
 AGENTS.md          guidance for coding agents
 ```
 
@@ -51,10 +52,23 @@ AGENTS.md          guidance for coding agents
 - VS Code 1.77 or newer
 - [yamlfmt](https://github.com/google/yamlfmt) 0.21 on your `PATH`, for
   `npm run lint` and `npm run format`. It isn't distributed on npm.
-- On NixOS: rumdl from nixpkgs, or `programs.nix-ld.enable`. The rumdl binary
-  installed by npm is linked against glibc and can't run on NixOS otherwise. The
-  build script falls back to a rumdl on your `PATH`. Running
-  `nix shell nixpkgs#rumdl nixpkgs#yamlfmt` covers both.
+- On NixOS, use the dev shell (below): the rumdl binary installed by npm is
+  linked against glibc and can't run there. The build script falls back to the
+  rumdl on your `PATH`.
+
+### Nix dev shell
+
+With Nix, `flake.nix` provides everything above except VS Code: Node.js 22,
+rumdl and yamlfmt, at the same versions CI and the maintainer's editor use. With
+[direnv](https://direnv.net/) the shell loads when you enter the repository:
+
+```sh
+direnv allow   # once; afterwards the shell loads automatically
+```
+
+Without direnv, run `nix develop` to enter it. When bumping rumdl or yamlfmt,
+update the nixpkgs pin (`nix flake update`) so the shell, `package.json` and CI
+keep using the same versions.
 
 ### Setup
 

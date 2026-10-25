@@ -45,9 +45,10 @@ There are no automated tests. To verify a change, run `npm run format`, then
 changes, use "Run Extension" from the root `.vscode/launch.json`.
 
 yamlfmt is not on npm and must be on `PATH`. rumdl's npm binary does not run on
-NixOS. In both cases run lint/format inside
-`nix shell nixpkgs#rumdl nixpkgs#yamlfmt`; the build script falls back to
-binaries on `PATH`.
+NixOS. The Nix dev shell (`flake.nix`, loaded by direnv or `nix develop`)
+provides Node.js 22, rumdl and yamlfmt at the pinned versions; run commands with
+`nix develop -c npm run lint` if the shell is not active. The build script falls
+back to binaries on `PATH`.
 
 ## Conventions
 
