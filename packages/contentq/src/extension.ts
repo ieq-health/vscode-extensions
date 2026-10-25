@@ -113,6 +113,7 @@ export function activate(context: vscode.ExtensionContext) {
 		"/health/dental/praxis/technik/ultraschall-paro",
 		"/health/dental/praxis/technik/ultraschallaktivierte-spuelloesungen",
 		"/health/dental/praxis/technik/vistacam",
+		"/health/dental/praxis/technik/wachstumsfaktoren",
 		"/health/dental/praxis/technik/zebris-jma-system",
 		'/health/dental/praxis/termine',
 		'/health/dental/praxis/verbaende',
