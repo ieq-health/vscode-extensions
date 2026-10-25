@@ -1,0 +1,45 @@
+name: Release
+
+# Push a tag named <package>-v<version>, e.g. linq-v0.5.15, to publish that
+# package to the Marketplace. The version must match its package.json.
+on:
+  push:
+    tags:
+      - '*-v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Resolve package from tag
+        id: tag
+        run: |
+          package="${GITHUB_REF_NAME%-v*}"
+          version="${GITHUB_REF_NAME##*-v}"
+          manifest="packages/$package/package.json"
+          if [ ! -f "$manifest" ]; then
+            echo "::error::No package '$package' for tag $GITHUB_REF_NAME"
+            exit 1
+          fi
+          actual="$(jq -r .version "$manifest")"
+          if [ "$actual" != "$version" ]; then
+            echo "::error::Tag version $version does not match $manifest version $actual"
+            exit 1
+          fi
+          echo "package=$package" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Publish
+        working-directory: packages/${{ steps.tag.outputs.package }}
+        env:
+          VSCE_PAT: ${{ secrets.PUBLISHER_TOKEN }}
+        run: npx vsce publish --no-dependencies

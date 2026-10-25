@@ -6,10 +6,11 @@
 	"version": "0.0.3",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ieq-health/vscode-smile3d.git"
+		"url": "https://github.com/ieq-health/vscode-extensions.git",
+		"directory": "packages/smile3d"
 	},
 	"engines": {
-		"vscode": "^1.30.0"
+		"vscode": "^1.77.0"
 	},
 	"categories": [
 		"Other"
@@ -30,13 +31,6 @@
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"test": "npm run compile && node ./node_modules/vscode/bin/test"
-	},
-	"devDependencies": {
-		"typescript": "^3.1.4",
-		"vscode": "^1.1.37",
-		"@types/node": "^8.10.25",
-		"@types/mocha": "^2.2.42"
+		"package": "vsce package --no-dependencies"
 	}
 }
