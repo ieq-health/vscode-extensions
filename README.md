@@ -16,18 +16,25 @@ Most users only need to install **bundleQ**, which pulls in everything else.
 
 ## Repository layout
 
+All build configuration lives at the root. A package contains only its
+manifest, source and user-facing files.
+
 ```text
 .github/workflows/
-  ci.yml           build and package every extension on PRs and pushes to main
+  ci.yml           check and package every extension on PRs and pushes to main
   release.yml      publish one extension when a <package>-v<version> tag is pushed
+.vscode/           launch configurations and watch tasks for all extensions
 packages/
-  bundleq/         extension pack (no code): extensionPack, keybindings, HTML snippets
-  contentq/        src/extension.ts -> out/extension.js
-  firmendatenq/    src/extension.ts -> out/extension.js
-  linq/            src/extension.ts -> out/extension.js (bundled with esbuild on publish)
-  smile3d/         src/extension.ts -> out/extension.js
-package.json       npm workspaces root; owns the whole toolchain
-tsconfig.base.json shared compiler options; each package's tsconfig extends it
+  bundleq/         extension pack (no code): package.json, icon, HTML snippets
+  contentq/        package.json, src/extension.ts, README.md, CHANGELOG.md
+  firmendatenq/    ...
+  linq/            ...
+  smile3d/         ...
+scripts/build.mjs  the build tool: manifest checks, type-check, bundle, package, release
+package.json       npm workspaces root: toolchain, engines.vscode, npm scripts
+tsconfig.json      one TypeScript config covering packages/*/src
+.vscodeignore      one ignore file for every .vsix
+LICENSE            BSD-2-Clause, copied into every .vsix
 AGENTS.md          guidance for coding agents
 ```
 
@@ -35,7 +42,7 @@ AGENTS.md          guidance for coding agents
 
 ### Prerequisites
 
-- Node.js 22 (what CI uses) and npm
+- Node.js 22 or newer (CI uses 22) and npm
 - VS Code 1.77 or newer
 
 ### Setup
@@ -50,33 +57,70 @@ dependencies into the root `node_modules`.
 
 ### Everyday commands
 
-Run from the repository root:
+Run from the repository root. Commands that accept package names apply to all
+packages when none are given.
 
 ```sh
-npm run compile                                 # type-check and compile all packages
-npm run package                                 # build a .vsix for every package
-npm run package --workspace packages/linq       # build a single package
-npm run watch --workspace packages/linq         # recompile on change
+npm run check                     # validate manifests and type-check everything
+npm run build                     # check, then bundle every extension
+npm run package                   # check, bundle and build dist/<name>-<version>.vsix
+npm run package -- linq smile3d   # only these packages
+npm run watch                     # rebundle on change
+npm run watch:types               # type-check on change
 ```
+
+`npm run <script>` is shorthand for `node scripts/build.mjs <command>`, which you
+can also call directly.
 
 ### Running and debugging an extension
 
-Open the package folder itself (e.g. `code packages/linq`), not the repository
-root, and start the **Run Extension** launch configuration (F5). It runs
-`npm: watch` and opens an Extension Development Host with the extension loaded.
+Open the **repository root** in VS Code and press F5:
+
+- **Run Extension** asks which extension to load.
+- **Run All Extensions** loads all of them, which is closest to having bundleQ
+  installed.
+
+Both start the `watch` task first (bundling and type-checking in the
+background), so edits are picked up after reloading the Extension Development
+Host window (Ctrl+R). Errors from both appear in the Problems panel.
 
 To try a packaged build in your normal VS Code:
 
 ```sh
-npm run package --workspace packages/linq
-code --install-extension packages/linq/linq-*.vsix
+npm run package -- linq
+code --install-extension dist/linq-0.5.14.vsix
 ```
+
+### How extensions are built
+
+`scripts/build.mjs` is the only build tool. Packages have no `scripts`,
+`tsconfig.json` or `.vscodeignore` of their own.
+
+1. **Check:** every `packages/*/package.json` is validated against the shared
+   settings: `name` matches the directory; `publisher`, `license` and
+   `repository` are correct; `engines.vscode` equals the root `engines.vscode`;
+   `main` is `./out/extension.js`; and there are no `scripts` or
+   `devDependencies`. The root `@types/vscode` must target the same VS Code
+   version as `engines.vscode`, and `.vscode/launch.json` must list every
+   package. Then `tsc` type-checks all packages using the root `tsconfig.json`.
+2. **Bundle:** esbuild bundles each package's `src/extension.ts`, and everything
+   it imports except `vscode` (provided by VS Code), into one
+   `out/extension.js`.
+3. **Package:** vsce builds `dist/<name>-<version>.vsix` with
+   `--no-dependencies`, the root `.vscodeignore` and the root `LICENSE`. It also
+   rewrites relative links in the package README to point at
+   `packages/<name>/` on GitHub.
+
+Published extensions therefore always ship as one bundled file with no
+`node_modules`. This is required in a workspace (see
+[Adding a dependency](#adding-a-dependency)) and is what VS Code recommends for
+load time.
 
 ### Testing
 
 There are no automated tests. Before opening a PR, run `npm run package` (CI
-does the same) and exercise any behaviour change in the Extension Development
-Host.
+does the same and attaches the `.vsix` files to the run as the `vsix`
+artifact), and try any behaviour change in the Extension Development Host.
 
 ### Adding a dependency
 
@@ -85,24 +129,32 @@ Host.
 - **Runtime dependencies** go in the package:
   `npm install <pkg> --workspace packages/<name>`.
 
-Extensions are packaged with `vsce package --no-dependencies`, because npm
-workspaces hoist dependencies to the root and vsce would otherwise pull the
-whole monorepo into the `.vsix`. A package with runtime dependencies must
-therefore bundle them. linq does this with esbuild in its `bundle` script, which
-`vscode:prepublish` runs. Copy that pattern.
+npm workspaces hoist all dependencies to the root `node_modules`, so letting
+vsce collect them would pull the whole monorepo into the `.vsix`. Instead,
+runtime dependencies are inlined by the bundle step. Nothing else is needed
+after installing one, but check the `.vsix` size after `npm run package`.
+
+### Changing the minimum VS Code version
+
+Update `engines.vscode` in the root `package.json`, the root `@types/vscode`
+version, and `engines.vscode` in every package, all to the same version. The
+check step fails until they agree. Raising the minimum is a user-facing change,
+so mention it in each package's changelog.
 
 ### Adding a new extension
 
-1. Create `packages/<name>/` with a `package.json` (publisher
-   `christianbrassat`), a `tsconfig.json` extending `../../tsconfig.base.json`, a
-   `.vscodeignore`, `README.md` and `CHANGELOG.md`. Copying an existing package
-   is the quickest start.
-2. Add `<name>` to the matrix in `.github/workflows/ci.yml`.
-3. Add `build (<name>)` to the required status checks of the `main` branch
-   protection (Settings → Branches), otherwise its CI result is not enforced.
+1. Create `packages/<name>/` with a `package.json`, `src/extension.ts`,
+   `README.md` and `CHANGELOG.md`. Copying an existing package is the quickest
+   start. `npm run check` reports anything the manifest is missing.
+2. Add `<name>` to both lists in `.vscode/launch.json`. The check step fails
+   until you do.
+3. Run `npm install` so the workspace picks up the new package.
 4. Publish it once (see [Releasing](#releasing)) before adding it to bundleQ's
    `extensionPack`: the pack can only reference extensions that already exist on
    the Marketplace.
+
+CI and branch protection need no changes. The single `build` job covers every
+package.
 
 ## Conventions
 
@@ -120,12 +172,13 @@ therefore bundle them. linq does this with esbuild in its `bundle` script, which
 - **Versioning:** every package has its own [semver](https://semver.org/)
   version. A PR that should be released bumps `version` in the package's
   `package.json` and adds an entry to its `CHANGELOG.md`.
-- **Toolchain:** devDependencies live in the root `package.json` only.
-  `@types/vscode` must not be newer than the lowest `engines.vscode` (currently
-  `^1.77.0`), so bump them together.
+- **Centralized build:** all tooling and configuration live at the root. Never
+  add `scripts`, `devDependencies`, a `tsconfig.json` or a `.vscodeignore` to a
+  package; extend `scripts/build.mjs` or the root files instead. `npm run check`
+  enforces this.
 - **Formatting:** there is no formatter or linter. Match the indentation of the
-  file you edit: tabs in contentq, firmendatenq and smile3d; two spaces in linq
-  and bundleq.
+  file you edit: tabs in contentq, firmendatenq, smile3d and the root files;
+  two spaces in linq and bundleq.
 - **Marketplace identity:** never change `publisher` or `name` in a package's
   `package.json`. The Marketplace ID is derived from them, and changing either
   breaks updates for everyone who has the extension installed.
@@ -137,7 +190,7 @@ therefore bundle them. linq does this with esbuild in its `bundle` script, which
 `main` is protected. Nobody, administrators included, can push to it directly:
 
 - every change lands through a pull request;
-- all `build (<package>)` CI checks must pass;
+- the `build` CI check must pass;
 - the PR branch must be up to date with `main` before merging;
 - review conversations must be resolved;
 - force pushes to and deletion of `main` are blocked.
@@ -282,9 +335,9 @@ Each extension is released independently by pushing a tag named
    jj git push --tag linq-v0.5.15
    ```
 
-4. The **Release** workflow checks that the tag's version matches
-   `packages/<name>/package.json`, builds the package and runs
-   `vsce publish`. Follow it under the repository's Actions tab. The new version
+4. The **Release** workflow runs `node scripts/build.mjs release <tag>`, which
+   checks that the tag's version matches `packages/<name>/package.json`, runs
+   all checks, packages the extension and publishes it. Follow it under the repository's Actions tab. The new version
    usually shows up on the Marketplace within a few minutes.
 
 If the workflow fails before publishing, fix the problem in a PR, then delete
@@ -308,10 +361,12 @@ authentication error, create a new token and update the secret:
 gh secret set PUBLISHER_TOKEN -R ieq-health/vscode-extensions
 ```
 
-To publish manually in an emergency, from the package folder:
+To publish manually in an emergency, check out the tagged commit and run the
+same command as the workflow:
 
 ```sh
-npx vsce publish --no-dependencies -p <token>
+npm ci
+VSCE_PAT=<token> node scripts/build.mjs release linq-v0.5.15
 ```
 
 ### Releasing bundleQ

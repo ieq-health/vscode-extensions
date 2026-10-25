@@ -1,0 +1,10 @@
+# Shared by all packages; patterns are relative to packages/<name>/.
+# Everything is excluded except what a published extension needs.
+**
+!out/extension.js
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+!icon.png
+!snippets/**

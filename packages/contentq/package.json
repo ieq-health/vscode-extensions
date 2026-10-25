@@ -4,6 +4,7 @@
 	"displayName": "contentQ",
 	"description": "InsertContent made easy",
 	"version": "0.0.4",
+	"license": "BSD-2-Clause",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ieq-health/vscode-extensions.git",
@@ -26,11 +27,5 @@
 				"title": "contentQ: InsertContent"
 			}
 		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"package": "vsce package --no-dependencies"
 	}
 }

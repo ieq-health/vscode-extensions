@@ -1,0 +1,8 @@
+{
+	"search.exclude": {
+		"**/out": true,
+		"dist": true
+	},
+	// Build tasks are defined in tasks.json
+	"typescript.tsc.autoDetect": "off"
+}

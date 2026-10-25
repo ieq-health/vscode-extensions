@@ -4,6 +4,7 @@
   "displayName": "bundleQ",
   "description": "ieQ health extension bundle",
   "version": "1.4.0",
+  "license": "BSD-2-Clause",
   "icon": "icon.png",
   "repository": {
     "type": "git",
@@ -12,9 +13,6 @@
   },
   "engines": {
     "vscode": "^1.77.0"
-  },
-  "scripts": {
-    "package": "vsce package --no-dependencies"
   },
   "categories": [
     "Extension Packs"

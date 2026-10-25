@@ -1,0 +1,42 @@
+// Open the repository root in VS Code and press F5.
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/${input:package}"
+			],
+			"outFiles": [
+				"${workspaceFolder}/packages/*/out/**/*.js"
+			],
+			"preLaunchTask": "watch"
+		},
+		{
+			"name": "Run All Extensions",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/bundleq",
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/contentq",
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/firmendatenq",
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/linq",
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/smile3d"
+			],
+			"outFiles": [
+				"${workspaceFolder}/packages/*/out/**/*.js"
+			],
+			"preLaunchTask": "watch"
+		}
+	],
+	"inputs": [
+		{
+			"id": "package",
+			"type": "pickString",
+			"description": "Extension to run",
+			"options": ["bundleq", "contentq", "firmendatenq", "linq", "smile3d"]
+		}
+	]
+}

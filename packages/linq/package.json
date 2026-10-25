@@ -4,6 +4,7 @@
   "displayName": "linQ",
   "description": "",
   "version": "0.5.14",
+  "license": "BSD-2-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/ieq-health/vscode-extensions.git",
@@ -19,7 +20,7 @@
     "onCommand:linq.registerSitemap",
     "onCommand:linq.insertLink"
   ],
-  "main": "./out/extension",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
@@ -35,13 +36,6 @@
         "title": "linQ: Replace Link"
       }
     ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run bundle",
-    "bundle": "tsc -p ./ --noEmit && esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node --target=node16",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "package": "vsce package --no-dependencies"
   },
   "dependencies": {
     "node-html-parser": "^1.1.11"

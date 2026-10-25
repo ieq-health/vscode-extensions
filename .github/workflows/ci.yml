@@ -9,10 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        package: [contentq, firmendatenq, linq, smile3d, bundleq]
 
     steps:
       - uses: actions/checkout@v5
@@ -24,5 +20,10 @@ jobs:
 
       - run: npm ci
 
-      - name: Package
-        run: npm run package --workspace packages/${{ matrix.package }}
+      # Validates manifests, type-checks, bundles and packages every extension
+      - run: npm run package
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vsix
+          path: dist/*.vsix

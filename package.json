@@ -5,8 +5,11 @@
 		"packages/*"
 	],
 	"scripts": {
-		"compile": "npm run compile --workspaces --if-present",
-		"package": "npm run package --workspaces"
+		"check": "node scripts/build.mjs check",
+		"build": "node scripts/build.mjs bundle",
+		"watch": "node scripts/build.mjs watch",
+		"watch:types": "tsc --noEmit --watch --preserveWatchOutput -p .",
+		"package": "node scripts/build.mjs package"
 	},
 	"devDependencies": {
 		"@types/node": "^20.0.0",
@@ -14,5 +17,9 @@
 		"@vscode/vsce": "^3.0.0",
 		"esbuild": "^0.25.0",
 		"typescript": "^5.0.0"
+	},
+	"engines": {
+		"node": ">=22",
+		"vscode": "^1.77.0"
 	}
 }

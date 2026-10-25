@@ -4,6 +4,7 @@
 	"displayName": "firmendatenQ",
 	"description": "Insert Firmendaten",
 	"version": "0.1.6",
+	"license": "BSD-2-Clause",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ieq-health/vscode-extensions.git",
@@ -26,11 +27,5 @@
 				"title": "firmendatenQ: Insert Firmendaten"
 			}
 		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"package": "vsce package --no-dependencies"
 	}
 }
