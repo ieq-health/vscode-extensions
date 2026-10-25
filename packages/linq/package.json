@@ -1,0 +1,57 @@
+{
+  "publisher": "christianbrassat",
+  "name": "linq",
+  "displayName": "linQ",
+  "description": "",
+  "version": "0.5.14",
+  "repository": {
+    "type": "git",
+    "url": "https://ieq-health.visualstudio.com/linQ/_git/linQ"
+  },
+  "engines": {
+    "vscode": "^1.35.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:linq.registerSitemap",
+    "onCommand:linq.insertLink"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "linq.registerSitemap",
+        "title": "linQ: Register Sitemap"
+      },
+      {
+        "command": "linq.insertLink",
+        "title": "linQ: Insert Link"
+      },
+      {
+        "command": "linq.replaceLink",
+        "title": "linQ: Replace Link"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "tslint": "^5.8.0",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42",
+    "@types/vscode": "^1.35.0"
+  },
+  "dependencies": {
+    "@types/request-promise": "^4.1.42",
+    "@types/request-promise-native": "^1.0.15",
+    "node-html-parser": "^1.1.11",
+    "vscode-test": "^1.2.0"
+  }
+}
