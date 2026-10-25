@@ -1,4 +1,9 @@
 node_modules/
 out/
+dist/
 .vscode-test/
+.rumdl_cache/
+.direnv/
 *.vsix
+# Copied from the root LICENSE while packaging
+packages/*/LICENSE

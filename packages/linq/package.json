@@ -1,49 +1,43 @@
 {
-  "publisher": "christianbrassat",
-  "name": "linq",
-  "displayName": "linQ",
-  "description": "",
-  "version": "0.5.14",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ieq-health/vscode-extensions.git",
-    "directory": "packages/linq"
-  },
-  "engines": {
-    "vscode": "^1.77.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onCommand:linq.registerSitemap",
-    "onCommand:linq.insertLink"
-  ],
-  "main": "./out/extension",
-  "contributes": {
-    "commands": [
-      {
-        "command": "linq.registerSitemap",
-        "title": "linQ: Register Sitemap"
-      },
-      {
-        "command": "linq.insertLink",
-        "title": "linQ: Insert Link"
-      },
-      {
-        "command": "linq.replaceLink",
-        "title": "linQ: Replace Link"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run bundle",
-    "bundle": "tsc -p ./ --noEmit && esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node --target=node16",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "package": "vsce package --no-dependencies"
-  },
-  "dependencies": {
-    "node-html-parser": "^1.1.11"
-  }
+	"name": "linq",
+	"displayName": "linQ",
+	"version": "0.5.14",
+	"description": "",
+	"categories": [
+		"Other"
+	],
+	"license": "BSD-2-Clause",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ieq-health/vscode-extensions.git",
+		"directory": "packages/linq"
+	},
+	"publisher": "christianbrassat",
+	"main": "./out/extension.js",
+	"dependencies": {
+		"node-html-parser": "^1.1.11"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "linq.registerSitemap",
+				"title": "linQ: Register Sitemap"
+			},
+			{
+				"command": "linq.insertLink",
+				"title": "linQ: Insert Link"
+			},
+			{
+				"command": "linq.replaceLink",
+				"title": "linQ: Replace Link"
+			}
+		]
+	},
+	"activationEvents": [
+		"onCommand:linq.insertLink",
+		"onCommand:linq.registerSitemap"
+	],
+	"engines": {
+		"vscode": "^1.77.0"
+	}
 }
