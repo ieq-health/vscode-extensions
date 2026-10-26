@@ -2,6 +2,12 @@
 
 All notable changes to the "contentq" extension will be documented in this file.
 
+## [0.0.6]
+
+### Changed
+
+- Require VS Code 1.82 or newer
+
 ## [0.0.5] - 2023-04-14
 
 Published to the Marketplace without being committed; reconstructed from the

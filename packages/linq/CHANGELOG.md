@@ -2,6 +2,20 @@
 
 All notable changes to the "linq" extension will be documented in this file.
 
+## [0.6.0]
+
+### Added
+
+- Load the sitemap from a URL: any page of the site, `/sitemap` or
+  `/scripts/show.aspx?content=/health/<namespace>/sitemap`. If the sitemap isn't
+  found there, choose a saved HTML file instead
+- Ask for the namespace when the sitemap uses SEO-URLs, unless the sitemap URL
+  contains it
+
+### Changed
+
+- Require VS Code 1.82 or newer
+
 ## [0.5.14] - 2022-11-30
 
 ### Added

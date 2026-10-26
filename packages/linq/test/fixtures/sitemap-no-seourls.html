@@ -1,0 +1,92 @@
+<!doctype html>
+<!--
+	Sitemap page of a site without SEO-URLs, reduced to what linQ reads.
+	Structure and edge cases are taken from a real site; names and domains are
+	made up.
+-->
+<html lang="de">
+	<head>
+		<meta charset="utf-8" />
+		<title>Sitemap</title>
+		<link
+			rel="shortcut icon"
+			href="http://www.example.com/scripts/get.aspx?media=/shop/layout/FavIcon.ico"
+		/>
+	</head>
+	<body>
+		<!-- Links outside .sitemap-site must be ignored -->
+		<a href="/scripts/kontakt/mail.aspx" style="display: none">Kontakt</a>
+		<nav>
+			<a href="/home.aspx">Home</a>
+			<a href="javascript:toggleDrFlexAppointments()">Termin buchen</a>
+		</nav>
+
+		<main>
+			<h1>Sitemap</h1>
+			<div class="sitemap-site">
+				<div class="vertical_menu">
+					<ul>
+						<li><a href="/home.aspx">Home</a></li>
+						<li>
+							<a
+								href="/scripts/show.aspx?content=/health/dental/sofort-feste-zaehne"
+								>Sofort feste Zähne</a
+							>
+							<ul>
+								<li>
+									<a
+										href="/scripts/show.aspx?content=/health/dental/sofort-feste-zaehne/vorteile-der-sofortversorgung"
+										>Vorteile der Sofortversorgung</a
+									>
+								</li>
+								<li>
+									<a
+										href="/scripts/show.aspx?content=/health/dental/sofort-feste-zaehne/faq-sofortversorgung"
+										>FAQ Sofortversorgung</a
+									>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a
+								href="/scripts/show.aspx?content=/health/dental/keramikimplantate"
+								>Keramikimplantate</a
+							>
+							<ul>
+								<li>
+									<a
+										href="/scripts/show.aspx?content=/health/dental/keramikimplantate/keramik-vs-titan"
+										>Keramik vs. Titan</a
+									>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/scripts/show.aspx?content=/health/dental/kontakt"
+								>Kontakt</a
+							>
+							<ul>
+								<li>
+									<a
+										href="/scripts/show.aspx?content=/health/dental/kontakt/impressum"
+										>Impressum</a
+									>
+								</li>
+								<li>
+									<a
+										href="/scripts/show.aspx?content=/health/dental/kontakt/datenschutzerklaerung"
+										>Datenschutz&shy;erklärung</a
+									>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<footer>
+			<a href="/sitemap">Sitemap</a>
+		</footer>
+	</body>
+</html>

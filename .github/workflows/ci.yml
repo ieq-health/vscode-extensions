@@ -35,6 +35,8 @@ jobs:
 
       - run: npm run lint
 
+      - run: npm test
+
       # Validates manifests, type-checks, bundles and packages every extension
       - run: npm run package
 

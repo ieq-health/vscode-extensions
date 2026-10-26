@@ -3,6 +3,12 @@
 All notable changes to the "firmendatenq" extension will be documented in this
 file.
 
+## [0.1.7]
+
+### Changed
+
+- Require VS Code 1.82 or newer
+
 ## [0.1.6] - 2019-10-23
 
 ### Added
