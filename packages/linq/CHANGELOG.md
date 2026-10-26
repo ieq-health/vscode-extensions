@@ -2,7 +2,7 @@
 
 All notable changes to the "linq" extension will be documented in this file.
 
-## [0.6.0]
+## [0.6.0] - 2026-10-26
 
 ### Added
 
