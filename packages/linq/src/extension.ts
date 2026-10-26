@@ -2,7 +2,8 @@
 
 import * as vscode from "vscode";
 
-import { buildLinks, NAMESPACES, readSitemap } from "./sitemap";
+import { findSitemap, normalizeUrl } from "./find";
+import { buildLinks, NAMESPACES, readSitemap, type Sitemap } from "./sitemap";
 
 let links: vscode.QuickPickItem[] = [];
 
@@ -1574,7 +1575,56 @@ const gw_links: vscode.QuickPickItem[] = [
 	},
 ];
 
+const SITEMAP_URL_KEY = "linq.sitemapUrl";
+let globalState: vscode.Memento;
+
+// Ask for a URL of the site and find its sitemap there; fall back to a file
 async function registerSitemap() {
+	const input = await vscode.window.showInputBox({
+		title: "linQ: Sitemap laden",
+		prompt: "URL der Website oder ihrer Sitemap",
+		placeHolder: "www.example.de",
+		value: globalState.get<string>(SITEMAP_URL_KEY),
+		ignoreFocusOut: true,
+		validateInput: (value) =>
+			normalizeUrl(value) === undefined ? "Keine gültige URL" : undefined,
+	});
+	if (input === undefined) {
+		return;
+	}
+
+	const url = normalizeUrl(input);
+	const { found, attempts } = await vscode.window.withProgress(
+		{
+			location: vscode.ProgressLocation.Notification,
+			title: `linQ: Sitemap von ${url.host} wird gesucht…`,
+		},
+		() => findSitemap(url),
+	);
+
+	if (found !== undefined) {
+		await globalState.update(SITEMAP_URL_KEY, found.url);
+		await loadSitemap(found.sitemap, found.namespace);
+		return;
+	}
+
+	const chooseFile = "Datei wählen…";
+	const choice = await vscode.window.showErrorMessage(
+		`linQ: Keine Sitemap auf ${url.host} gefunden. Bitte die Sitemap als HTML-Datei speichern und auswählen.`,
+		{
+			modal: true,
+			detail: attempts
+				.map((attempt) => `${attempt.url}: ${attempt.error}`)
+				.join("\n"),
+		},
+		chooseFile,
+	);
+	if (choice === chooseFile) {
+		await registerSitemapFile();
+	}
+}
+
+async function registerSitemapFile() {
 	const options: vscode.OpenDialogOptions = {
 		canSelectMany: false,
 		openLabel: "Open Sitemap HTML",
@@ -1585,18 +1635,14 @@ async function registerSitemap() {
 
 	const value = await vscode.window.showOpenDialog(options);
 	if (value !== undefined && value.length > 0) {
-		await parseSitemap(value[0].fsPath);
+		const html = (await vscode.workspace.openTextDocument(value[0])).getText();
+		await loadSitemap(readSitemap(html), undefined);
 	}
 }
 
-// Parse sitemap HTML
-async function parseSitemap(file: string) {
-	const sitemap = readSitemap(
-		(await vscode.workspace.openTextDocument(file)).getText(),
-	);
-
-	let namespace: string | undefined;
-	if (sitemap.usesSeoUrls) {
+// namespace is asked for if the sitemap needs one and it isn't known yet
+async function loadSitemap(sitemap: Sitemap, namespace: string | undefined) {
+	if (sitemap.usesSeoUrls && namespace === undefined) {
 		namespace = await vscode.window.showQuickPick(NAMESPACES, {
 			placeHolder: "Sitemap mit SEO-URLs: Namespace wählen (/health/…)",
 			ignoreFocusOut: true,
@@ -1706,6 +1752,7 @@ function replaceLink() {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	globalState = context.globalState;
 	context.subscriptions.push(
 		vscode.commands.registerCommand("linq.registerSitemap", registerSitemap),
 		vscode.commands.registerCommand("linq.insertLink", insertLink),
