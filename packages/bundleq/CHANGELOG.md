@@ -6,7 +6,7 @@ file.
 ## [1.4.0]
 
 - Add smile3d to the extension pack
-- Require VS Code 1.77 or newer
+- Require VS Code 1.82 or newer
 
 ## [1.3.2] - 2024-04-15
 

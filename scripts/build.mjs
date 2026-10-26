@@ -283,7 +283,7 @@ function esbuildOptions(pkg) {
 		external: ["vscode"],
 		format: "cjs",
 		platform: "node",
-		target: "node16",
+		target: "node18", // Node.js of VS Code 1.82 (engines.vscode)
 		sourcemap: "linked",
 		logLevel: "silent",
 	};
@@ -404,7 +404,7 @@ async function release(tag) {
 	console.log(`published ${PUBLISHER}.${name} ${version}`);
 }
 
-/** @param {string} range e.g. "^1.77.0" or "~1.77.0" */
+/** @param {string} range e.g. "^1.82.0" or "~1.82.0" */
 function minVersion(range) {
 	return range.replace(/^[\^~>=]+/, "");
 }

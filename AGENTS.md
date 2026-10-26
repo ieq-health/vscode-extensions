@@ -45,10 +45,10 @@ npm run package -- linq        # one or more named packages
 `npm test` runs `packages/*/test/**/*.test.ts` with `node --test` (type
 stripping, run from the root). Tests can't load `vscode`, so testable logic
 lives in vscode-free modules (e.g. `linq/src/sitemap.ts`, tested against the
-sitemaps in `linq/test/fixtures/`), imported with a `.ts` extension. To verify
-a change, run `npm run format`, then `npm run lint`, `npm test` and
-`npm run package`; CI runs the last three. For behaviour
-changes, use "Run Extension" from the root `.vscode/launch.json`.
+sitemaps in `linq/test/fixtures/`), imported with a `.ts` extension. To verify a
+change, run `npm run format`, then `npm run lint`, `npm test` and
+`npm run package`; CI runs the last three. For behaviour changes, use "Run
+Extension" from the root `.vscode/launch.json`.
 
 yamlfmt is not on npm and must be on `PATH`. rumdl's npm binary does not run on
 NixOS. The Nix dev shell (`flake.nix`, loaded by direnv or `nix develop`)

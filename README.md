@@ -49,7 +49,7 @@ AGENTS.md          guidance for coding agents
 ### Prerequisites
 
 - Node.js 22 or newer (CI uses 22) and npm
-- VS Code 1.77 or newer
+- VS Code 1.82 or newer
 - [yamlfmt](https://github.com/google/yamlfmt) 0.21 on your `PATH`, for
   `npm run lint` and `npm run format`. It isn't distributed on npm.
 - On NixOS, use the dev shell (below): the rumdl binary installed by npm is

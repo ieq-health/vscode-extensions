@@ -2,6 +2,12 @@
 
 All notable changes to the "linq" extension will be documented in this file.
 
+## [0.6.0]
+
+### Changed
+
+- Require VS Code 1.82 or newer
+
 ## [0.5.14] - 2022-11-30
 
 ### Added
