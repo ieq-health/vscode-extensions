@@ -1,3 +1,4 @@
-# Set default behavior to automatically normalize line endings.
-* text=auto
-
+# Normalize line endings and always check out text files with LF, regardless
+# of core.autocrlf, to match .editorconfig and the formatters (oxfmt, rumdl,
+# yamlfmt), which would otherwise rewrite CRLF checkouts on Windows.
+* text=auto eol=lf
