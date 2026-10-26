@@ -2,7 +2,7 @@
 
 import * as vscode from "vscode";
 
-import { parse } from "node-html-parser";
+import { buildLinks, NAMESPACES, readSitemap } from "./sitemap";
 
 let links: vscode.QuickPickItem[] = [];
 
@@ -1574,7 +1574,7 @@ const gw_links: vscode.QuickPickItem[] = [
 	},
 ];
 
-function registerSitemap() {
+async function registerSitemap() {
 	const options: vscode.OpenDialogOptions = {
 		canSelectMany: false,
 		openLabel: "Open Sitemap HTML",
@@ -1583,61 +1583,42 @@ function registerSitemap() {
 		},
 	};
 
-	vscode.window.showOpenDialog(options).then((value) => {
-		if (value !== null && value !== undefined) {
-			parseSitemap(value[0].fsPath);
-		}
-	});
+	const value = await vscode.window.showOpenDialog(options);
+	if (value !== undefined && value.length > 0) {
+		await parseSitemap(value[0].fsPath);
+	}
 }
 
-// Parse sitemap.xml
-function parseSitemap(file: string) {
-	vscode.workspace.openTextDocument(file).then((html) => {
-		const dom = parse(html.getText());
-		const map = dom.querySelectorAll(".sitemap-site a");
+// Parse sitemap HTML
+async function parseSitemap(file: string) {
+	const sitemap = readSitemap(
+		(await vscode.workspace.openTextDocument(file)).getText(),
+	);
 
-		// clean old sitemap
-		links = [];
-
-		map.forEach((link) => {
-			const path: string = getUrlPath(link.attributes.href);
-
-			links.push({
-				label: link.text,
-				detail: buildLink(path),
-			});
-
-			if (
-				getUrlPath(link.attributes.href).endsWith("health/dental/gw_dental")
-			) {
-				gw_links.forEach((link) => {
-					links.push({
-						label: link.label,
-						detail: buildLink("scripts/show.aspx?content=" + link.detail),
-					});
-				});
-			}
+	let namespace: string | undefined;
+	if (sitemap.usesSeoUrls) {
+		namespace = await vscode.window.showQuickPick(NAMESPACES, {
+			placeHolder: "Sitemap mit SEO-URLs: Namespace wählen (/health/…)",
+			ignoreFocusOut: true,
 		});
-	});
-}
+		if (namespace === undefined) {
+			return; // cancelled: keep old sitemap
+		}
+	}
 
-function buildLink(path: string) {
-	let link: string = path.startsWith("javascript") ? path : "http:/" + path;
-	link = link.replace(/\/+/, "/");
-	return link.replace(/\/\.\//, "/"); // Fix stuff for a certain someone
-}
-
-function getUrlPath(href: string) {
-	return href.replace(/^\.+\/?/, "").replace(/https?:\/\/.*?\//, "");
+	links = buildLinks(sitemap, namespace, gw_links);
 }
 
 // Insert link
-function insertLink() {
+async function insertLink() {
 	const editor = vscode.window.activeTextEditor;
 	let label: string;
 
 	if (links.length === 0) {
-		registerSitemap();
+		await registerSitemap();
+		if (links.length === 0) {
+			return;
+		}
 	}
 
 	vscode.window.showQuickPick(links).then((pick) => {
