@@ -145,10 +145,16 @@ load time.
 
 ### Testing
 
-There are no automated tests. Before opening a PR, run `npm run lint` and
-`npm run package` (CI does the same and attaches the `.vsix` files to the run as
-the `vsix` artifact), and try any behaviour change in the Extension Development
-Host.
+`npm test` runs `packages/*/test/**/*.test.ts` with Node's built-in test runner
+(`node --test` with type stripping, no extra dependencies). Tests can only
+import code that does not use the `vscode` API, so keep such logic in its own
+module (e.g. `packages/linq/src/sitemap.ts`) and import it with a `.ts`
+extension. Test files run from the repository root; fixtures live next to the
+tests (e.g. `packages/linq/test/fixtures/`).
+
+Before opening a PR, run `npm run lint`, `npm test` and `npm run package` (CI
+does the same and attaches the `.vsix` files to the run as the `vsix` artifact),
+and try any behaviour change in the Extension Development Host.
 
 ### Adding a dependency
 

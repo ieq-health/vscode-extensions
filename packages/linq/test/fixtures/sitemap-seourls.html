@@ -1,0 +1,123 @@
+<!doctype html>
+<!--
+	Sitemap page of a site with SEO-URLs, reduced to what linQ reads.
+	Structure and edge cases are taken from a real site; names and domains are
+	made up.
+-->
+<html lang="de">
+	<head>
+		<meta charset="utf-8" />
+		<title>Sitemap</title>
+		<!-- The site's own host is only visible in /scripts/*.aspx URLs -->
+		<link
+			rel="shortcut icon"
+			href="https://www.example.de/scripts/get.aspx?media=/shop/layout/FavIcon.ico"
+		/>
+	</head>
+	<body>
+		<!-- Links outside .sitemap-site must be ignored -->
+		<a href="/scripts/kontakt/mail.aspx" style="display: none">Kontakt</a>
+		<nav>
+			<a href="/">Home</a>
+			<a href="javascript:toggleDrFlexAppointments()">Termin buchen</a>
+		</nav>
+
+		<main>
+			<h2>Sitemap</h2>
+			<div class="sitemap-site">
+				<div class="vertical_menu">
+					<ul>
+						<li><a href="https://www.example.de">Home</a></li>
+						<li><a href="/praxis">Praxis</a></li>
+						<li><a href="/team">Team</a></li>
+						<li>
+							<a href="/leistungen">Leistungen</a>
+							<ul>
+								<li>
+									<a href="/leistungen/aesthetische-zahnmedizin"
+										>Ästhetische Zahnmedizin</a
+									>
+									<ul>
+										<li>
+											<a
+												href="/leistungen/aesthetische-zahnmedizin/veneers-frontzahnaesthetik"
+												><span lang="en">Veneers</span> /
+												Frontzahn&shy;ästhetik</a
+											>
+										</li>
+										<li>
+											<a href="/infozentrum/vorher-nachher-galerie"
+												>Vorher-Nachher-Galerie</a
+											>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="/leistungen/oralchirurgie">Oralchirurgie</a>
+									<ul>
+										<li>
+											<a href="/leistungen/oralchirurgie/wurzelspitzenresektion"
+												>Wurzelspitzen&shy;resektion</a
+											>
+										</li>
+										<li>
+											<a href="/leistungen/oralchirurgie/weisheitszaehne"
+												>Weisheitszähne</a
+											>
+										</li>
+										<li>
+											<!-- malformed, but appears like this in the wild -->
+											<a
+												href="https:/scripts/show.aspx?content=/health/dental/infozentrum/vorher-nachher-galerie"
+												>Vorher-Nachher-Galerie</a
+											>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/infozentrum">Infozentrum</a>
+							<ul>
+								<li>
+									<a href="/infozentrum/vorher-nachher-galerie"
+										>Vorher-Nachher-Galerie</a
+									>
+								</li>
+								<li>
+									<a
+										href="https://www.youtube.com/@example"
+										rel="nofollow"
+										target="_blank"
+										><span lang="en">Example</span> TV</a
+									>
+								</li>
+								<li>
+									<a href="/scripts/show.aspx?content=/health/dental/team#team"
+										>Vita Dr. Muster</a
+									>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/kontakt">Kontakt</a>
+							<ul>
+								<li><a href="/kontakt/impressum">Impressum</a></li>
+								<li>
+									<a href="/kontakt/datenschutzerklaerung"
+										>Datenschutz&shy;erklärung</a
+									>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<footer>
+			<a href="/kontakt/impressum">Impressum</a>
+			<a href="/sitemap">Sitemap</a>
+		</footer>
+	</body>
+</html>

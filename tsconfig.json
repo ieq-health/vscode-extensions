@@ -6,7 +6,8 @@
 		"strict": false,
 		"noUnusedLocals": true,
 		"skipLibCheck": true,
-		"noEmit": true
+		"noEmit": true,
+		"allowImportingTsExtensions": true
 	},
-	"include": ["packages/*/src"]
+	"include": ["packages/*/src", "packages/*/test"]
 }

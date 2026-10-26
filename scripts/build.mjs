@@ -6,6 +6,7 @@
 //
 //   check             validate manifests and type-check all packages
 //   lint              run oxlint, oxfmt (check only), rumdl and yamlfmt (lint only)
+//   test              run packages/*/test/**/*.test.ts with node --test
 //   format            apply oxlint fixes, then oxfmt, rumdl and yamlfmt formatting
 //   bundle [pkg...]   check, then bundle each code package to out/extension.js
 //   watch  [pkg...]   rebundle on change (no type-checking; see `npm run watch`)
@@ -255,6 +256,24 @@ function check() {
 	typecheck();
 }
 
+// Node's test runner with type stripping: no bundling, no extra dependency.
+// Test files import sources with a .ts extension and run from the root.
+function test() {
+	const result = spawnSync(
+		process.execPath,
+		[
+			"--experimental-strip-types",
+			"--no-warnings=ExperimentalWarning",
+			"--test",
+			"packages/*/test/**/*.test.ts",
+		],
+		{ cwd: root, stdio: "inherit" },
+	);
+	if (result.status !== 0) {
+		fail("Tests failed");
+	}
+}
+
 /** @param {Package} pkg */
 function esbuildOptions(pkg) {
 	return {
@@ -408,6 +427,9 @@ switch (command) {
 	case "lint":
 		lint();
 		break;
+	case "test":
+		test();
+		break;
 	case "format":
 		format();
 		break;
@@ -427,6 +449,6 @@ switch (command) {
 		break;
 	default:
 		fail(
-			"Usage: node scripts/build.mjs <check|lint|format|bundle|watch|package|release> [package...]",
+			"Usage: node scripts/build.mjs <check|lint|test|format|bundle|watch|package|release> [package...]",
 		);
 }

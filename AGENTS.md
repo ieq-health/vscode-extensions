@@ -23,7 +23,8 @@ tsconfig.json      single TypeScript config for packages/*/src (noEmit)
 LICENSE            BSD-2-Clause, copied into each .vsix at package time
 ```
 
-Each code package is a single `src/extension.ts`, bundled to `out/extension.js`.
+Each code package has a `src/extension.ts` entry point, bundled to
+`out/extension.js`; linq also has `src/sitemap.ts` (vscode-free, tested).
 Extension UI strings and content are German.
 
 ## Commands
@@ -34,14 +35,19 @@ Run from the repository root:
 npm ci                         # install everything
 npm run check                  # validate manifests + type-check (fast; run this first)
 npm run lint                   # oxlint + oxfmt --check + rumdl check + yamlfmt -lint
+npm test                       # node --test on packages/*/test/**/*.test.ts
 npm run format                 # oxlint --fix, then oxfmt + rumdl fmt + yamlfmt
 npm run build                  # check + bundle all packages
 npm run package                # check + bundle + dist/<name>-<version>.vsix for all
 npm run package -- linq        # one or more named packages
 ```
 
-There are no automated tests. To verify a change, run `npm run format`, then
-`npm run lint` and `npm run package`; CI runs the last two. For behaviour
+`npm test` runs `packages/*/test/**/*.test.ts` with `node --test` (type
+stripping, run from the root). Tests can't load `vscode`, so testable logic
+lives in vscode-free modules (e.g. `linq/src/sitemap.ts`, tested against the
+sitemaps in `linq/test/fixtures/`), imported with a `.ts` extension. To verify
+a change, run `npm run format`, then `npm run lint`, `npm test` and
+`npm run package`; CI runs the last three. For behaviour
 changes, use "Run Extension" from the root `.vscode/launch.json`.
 
 yamlfmt is not on npm and must be on `PATH`. rumdl's npm binary does not run on
